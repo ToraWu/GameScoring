@@ -1,0 +1,21 @@
+# Xcode user settings
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+
+# Build artifacts
+.build/
+*.ipa
+*.dSYM
+*.dSYM.zip
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
+
+# macOS
+.DS_Store
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
