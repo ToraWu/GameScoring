@@ -9,16 +9,24 @@
 /* Begin PBXBuildFile section */
 		00C8EA3C71BCBA94790319E2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E916C8EA354401A3DF91DF30 /* Preview Assets.xcassets */; };
 		0DD6F27121986F9E7B9DF986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F5B0A713B5644EC4BE03CE5 /* Assets.xcassets */; };
+		574D1641C306CB5A80855337 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DA2E282F8CF36AB39D3B4 /* Player.swift */; };
 		5AD4A2888BD00056C4FA8E3F /* GameScoringApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BFB960C181BC8236EA35D0 /* GameScoringApp.swift */; };
+		769C166E45205B75E70E999D /* Timestamped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79238FE297A5D0DE7A4FE93D /* Timestamped.swift */; };
+		95E495638C6E929CC168B981 /* GameSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B587D7FD8F8542D66DA7D2F9 /* GameSession.swift */; };
 		C0FBB0A3E0A86D0081C60B9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8D033452FCFDCCED806A57 /* ContentView.swift */; };
+		D82E48D2F3F3A293D660EAAB /* PlayerScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91E122160F677C6AE12AF14 /* PlayerScore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2A8D033452FCFDCCED806A57 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5337AA95A57163C3F09F925E /* GameScoring.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GameScoring.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		758DA2E282F8CF36AB39D3B4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		79238FE297A5D0DE7A4FE93D /* Timestamped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestamped.swift; sourceTree = "<group>"; };
 		8F5B0A713B5644EC4BE03CE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B587D7FD8F8542D66DA7D2F9 /* GameSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSession.swift; sourceTree = "<group>"; };
 		E916C8EA354401A3DF91DF30 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F2BFB960C181BC8236EA35D0 /* GameScoringApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScoringApp.swift; sourceTree = "<group>"; };
+		F91E122160F677C6AE12AF14 /* PlayerScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -28,6 +36,7 @@
 				8F5B0A713B5644EC4BE03CE5 /* Assets.xcassets */,
 				2A8D033452FCFDCCED806A57 /* ContentView.swift */,
 				F2BFB960C181BC8236EA35D0 /* GameScoringApp.swift */,
+				BAEF1BC191103226EE7B0596 /* Models */,
 				C3FC82652E9124255755B67C /* Preview Content */,
 			);
 			path = GameScoring;
@@ -47,6 +56,17 @@
 				09334E7A56BF447D306FC93E /* GameScoring */,
 				50FE62C88C2B463495A60BED /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		BAEF1BC191103226EE7B0596 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B587D7FD8F8542D66DA7D2F9 /* GameSession.swift */,
+				758DA2E282F8CF36AB39D3B4 /* Player.swift */,
+				F91E122160F677C6AE12AF14 /* PlayerScore.swift */,
+				79238FE297A5D0DE7A4FE93D /* Timestamped.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		C3FC82652E9124255755B67C /* Preview Content */ = {
@@ -131,6 +151,10 @@
 			files = (
 				C0FBB0A3E0A86D0081C60B9F /* ContentView.swift in Sources */,
 				5AD4A2888BD00056C4FA8E3F /* GameScoringApp.swift in Sources */,
+				95E495638C6E929CC168B981 /* GameSession.swift in Sources */,
+				574D1641C306CB5A80855337 /* Player.swift in Sources */,
+				D82E48D2F3F3A293D660EAAB /* PlayerScore.swift in Sources */,
+				769C166E45205B75E70E999D /* Timestamped.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
