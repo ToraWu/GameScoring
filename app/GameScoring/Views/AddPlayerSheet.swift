@@ -7,6 +7,10 @@ struct AddPlayerSheet: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(\.modelContext) private var context
 
+  /// Called with the freshly inserted player, e.g. so the setup flow can
+  /// auto-select it. Nil for the plain roster-management use.
+  var onCreate: ((Player) -> Void)? = nil
+
   @State private var name = ""
   @State private var color = Theme.avatarPalette[0]
   @FocusState private var nameFocused: Bool
@@ -55,7 +59,9 @@ struct AddPlayerSheet: View {
 
   private func addPlayer() {
     guard !trimmedName.isEmpty else { return }
-    context.insert(Player(name: trimmedName, avatarColor: color))
+    let player = Player(name: trimmedName, avatarColor: color)
+    context.insert(player)
+    onCreate?(player)
     dismiss()
   }
 }

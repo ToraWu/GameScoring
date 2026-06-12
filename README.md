@@ -34,7 +34,7 @@ open GameScoring.xcodeproj
 - [x] Game layer (`ScoringGame` protocol, 7 Wonders + Wingspan, `GameRegistry`)
 - [x] M1 — Navigation shell (4-tab Liquid Glass `TabView`, Warm Table theme)
 - [x] M2 — Players tab (roster CRUD: add, inline edit, swipe soft-delete)
-- [ ] M3 — Setup flow
+- [x] M3 — Setup flow (game picker → player select → create GameSession)
 - [ ] M4 — Scoring screen
 - [ ] M5 — Results screen
 - [ ] M6 — History + Home tabs
