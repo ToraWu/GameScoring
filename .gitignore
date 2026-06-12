@@ -3,6 +3,10 @@ xcuserdata/
 *.xcscmblueprint
 *.xccheckout
 
+# xcodegen — commit project.yml, not the generated .xcodeproj
+# (uncomment the line below if you prefer to commit the generated project)
+# GameScoring.xcodeproj/
+
 # Build artifacts
 .build/
 *.ipa

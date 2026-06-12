@@ -1,0 +1,32 @@
+name: GameScoring
+
+options:
+  bundleIdPrefix: com.toratgs
+  deploymentTarget:
+    iOS: "26.0"
+  createIntermediateGroups: true
+
+targets:
+  GameScoring:
+    type: application
+    platform: iOS
+    sources:
+      - path: GameScoring
+        excludes:
+          - "**/.DS_Store"
+    settings:
+      base:
+        PRODUCT_NAME: GameScoring
+        PRODUCT_BUNDLE_IDENTIFIER: com.toratgs.boardscore
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1"
+        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: YES
+        CURRENT_PROJECT_VERSION: "1"
+        MARKETING_VERSION: "1.0"
+        DEVELOPMENT_ASSET_PATHS: '"GameScoring/Preview Content"'
+        INFOPLIST_KEY_CFBundleDisplayName: BoardScore
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES

@@ -12,10 +12,19 @@ GameScoring/
 └── README.md
 ```
 
+## Setup
+
+```bash
+brew install xcodegen   # one-time
+xcodegen generate       # regenerate GameScoring.xcodeproj from project.yml
+open GameScoring.xcodeproj
+```
+
 ## Status
 
-- [ ] PRD received
-- [ ] Xcode project created
+- [x] PRD received
+- [x] Xcode project created (generated via xcodegen from `project.yml`)
+- [ ] Data model implemented
 - [ ] Core scoring logic implemented
 - [ ] UI built
 - [ ] Testing complete
