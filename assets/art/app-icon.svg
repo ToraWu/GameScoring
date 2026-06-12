@@ -1,0 +1,20 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Warm frosted-glass background; iOS applies the squircle mask itself. -->
+  <rect width="1024" height="1024" fill="#f7ece0"/>
+
+  <!-- Crown body (mahogany) -->
+  <polygon points="248,612 248,430 380,560 512,360 644,560 776,430 776,612"
+           fill="#92400e"/>
+  <!-- Crown band -->
+  <rect x="248" y="590" width="528" height="120" rx="20" fill="#92400e"/>
+
+  <!-- Amber ball tips on each peak -->
+  <circle cx="248" cy="430" r="40" fill="#b45309"/>
+  <circle cx="512" cy="360" r="42" fill="#b45309"/>
+  <circle cx="776" cy="430" r="40" fill="#b45309"/>
+
+  <!-- Gems on the band -->
+  <circle cx="380" cy="650" r="30" fill="#ca8a04"/>
+  <circle cx="512" cy="650" r="34" fill="#e11d48"/>
+  <circle cx="644" cy="650" r="30" fill="#ca8a04"/>
+</svg>

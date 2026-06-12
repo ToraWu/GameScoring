@@ -1,0 +1,24 @@
+<svg width="600" height="420" viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg">
+  <!-- Warm desert scene -->
+  <rect width="600" height="420" fill="#f3e3c9"/>
+  <rect y="262" width="600" height="158" fill="#dcc193"/>
+
+  <!-- Sun -->
+  <circle cx="478" cy="92" r="46" fill="#e8a33d"/>
+
+  <!-- Framing columns -->
+  <g fill="#efe1c6">
+    <rect x="40"  y="150" width="40" height="112"/>
+    <rect x="30"  y="138" width="60" height="16" rx="4"/>
+    <rect x="30"  y="262" width="60" height="14" rx="4"/>
+    <rect x="520" y="150" width="40" height="112"/>
+    <rect x="510" y="138" width="60" height="16" rx="4"/>
+    <rect x="510" y="262" width="60" height="14" rx="4"/>
+  </g>
+
+  <!-- Great pyramid, two faces for depth -->
+  <polygon points="300,86 150,300 300,300" fill="#b45309"/>
+  <polygon points="300,86 450,300 300,300" fill="#92400e"/>
+  <!-- Capstone glint -->
+  <polygon points="300,86 276,120 324,120" fill="#e8a33d"/>
+</svg>

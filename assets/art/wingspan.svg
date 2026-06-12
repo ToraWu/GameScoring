@@ -1,0 +1,39 @@
+<svg width="600" height="420" viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft sage nature scene -->
+  <rect width="600" height="420" fill="#e7eede"/>
+  <!-- Rolling hill -->
+  <path d="M0 420 Q 300 300 600 420 Z" fill="#cdddb8"/>
+
+  <!-- Branch -->
+  <path d="M70 312 Q 300 322 540 296" stroke="#7a5a32" stroke-width="14"
+        fill="none" stroke-linecap="round"/>
+  <!-- Leaves -->
+  <g fill="#6f9e5a">
+    <ellipse cx="150" cy="300" rx="22" ry="11" transform="rotate(-28 150 300)"/>
+    <ellipse cx="470" cy="300" rx="22" ry="11" transform="rotate(24 470 300)"/>
+  </g>
+
+  <!-- Egg resting on the branch -->
+  <ellipse cx="210" cy="296" rx="20" ry="26" fill="#faf5ed" stroke="#d8c7a6" stroke-width="2"/>
+
+  <!-- Bird -->
+  <g>
+    <!-- Tail -->
+    <polygon points="232,196 196,150 268,196" fill="#92400e"/>
+    <!-- Body -->
+    <ellipse cx="330" cy="206" rx="86" ry="58" fill="#b45309"/>
+    <!-- Wing -->
+    <ellipse cx="318" cy="208" rx="50" ry="30" transform="rotate(18 318 208)" fill="#92400e"/>
+    <!-- Head -->
+    <circle cx="412" cy="166" r="38" fill="#b45309"/>
+    <!-- Beak -->
+    <polygon points="448,158 492,170 448,182" fill="#e8a33d"/>
+    <!-- Eye -->
+    <circle cx="424" cy="158" r="6" fill="#1c1008"/>
+    <!-- Legs -->
+    <g stroke="#7a5a32" stroke-width="5" stroke-linecap="round">
+      <line x1="318" y1="262" x2="318" y2="300"/>
+      <line x1="350" y1="262" x2="350" y2="300"/>
+    </g>
+  </g>
+</svg>

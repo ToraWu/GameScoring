@@ -31,6 +31,12 @@ open GameScoring.xcodeproj
 - [x] PRD received
 - [x] Xcode project created (generated via xcodegen from `app/project.yml`)
 - [x] Data model implemented (`Player`, `GameSession`, `PlayerScore`)
-- [ ] Core scoring logic implemented
-- [ ] UI built
+- [x] Game layer (`ScoringGame` protocol, 7 Wonders + Wingspan, `GameRegistry`)
+- [x] M1 — Navigation shell (4-tab Liquid Glass `TabView`, Warm Table theme)
+- [ ] M2 — Players tab (roster CRUD)
+- [ ] M3 — Setup flow
+- [ ] M4 — Scoring screen
+- [ ] M5 — Results screen
+- [ ] M6 — History + Home tabs
+- [ ] M7 — Polish
 - [ ] Testing complete
