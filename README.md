@@ -35,7 +35,7 @@ open GameScoring.xcodeproj
 - [x] M1 — Navigation shell (4-tab Liquid Glass `TabView`, Warm Table theme)
 - [x] M2 — Players tab (roster CRUD: add, inline edit, swipe soft-delete)
 - [x] M3 — Setup flow (game picker → player select → create GameSession)
-- [ ] M4 — Scoring screen
+- [x] M4 — Scoring screen (live inputs, computed VP, ranking, Finish/discard)
 - [ ] M5 — Results screen
 - [ ] M6 — History + Home tabs
 - [ ] M7 — Polish

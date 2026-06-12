@@ -35,4 +35,34 @@ enum SessionService {
     }
     return session
   }
+
+  /// Finalizes a session: computes each player's category VP and total from the
+  /// supplied raw inputs (keyed by `PlayerScore.id`), ranks them, records the
+  /// results, and marks the session complete with its winners.
+  static func finish(
+    _ session: GameSession,
+    game: any ScoringGame,
+    inputs: [UUID: [String: Double]]
+  ) {
+    // Pass 1: compute category scores and totals.
+    let computed = session.playerScores.map { score -> (PlayerScore, [String: Double], Double) in
+      let raw = inputs[score.id] ?? [:]
+      let categories = ScoringEngine.categoryScores(for: game, inputs: raw)
+      return (score, categories, categories.values.reduce(0, +))
+    }
+
+    // Pass 2: rank by total + tiebreaker.
+    let entries = computed.compactMap { score, categories, total -> RankingService.Entry? in
+      guard let playerID = score.player?.id else { return nil }
+      return RankingService.Entry(playerID: playerID, total: total, categoryScores: categories)
+    }
+    let ranking = RankingService.rank(game: game, entries: entries)
+
+    // Pass 3: persist and complete.
+    for (score, categories, total) in computed {
+      let rank = score.player.flatMap { ranking.ranks[$0.id] } ?? 0
+      score.record(totalScore: total, rank: rank, categoryScores: categories)
+    }
+    session.complete(winnerIDs: ranking.winnerIDs)
+  }
 }

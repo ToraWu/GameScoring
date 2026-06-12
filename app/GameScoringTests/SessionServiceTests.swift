@@ -84,4 +84,46 @@ struct SessionServiceTests {
 
     #expect(SessionService.inProgress(in: context) == nil)
   }
+
+  @Test func finishRecordsTotalsRanksAndWinner() throws {
+    let context = try makeContext()
+    let players = seedPlayers(2, in: context)
+    let session = SessionService.start(game: Wingspan.shared, players: players, in: context)
+
+    // Map each player's score row to raw inputs.
+    let scores = session.playerScores.sorted {
+      ($0.player?.createdAt ?? .distantPast) < ($1.player?.createdAt ?? .distantPast)
+    }
+    let inputs: [UUID: [String: Double]] = [
+      scores[0].id: ["birds": 40, "eggs": 5],   // 45
+      scores[1].id: ["birds": 30, "eggs": 2],   // 32
+    ]
+
+    SessionService.finish(session, game: Wingspan.shared, inputs: inputs)
+
+    #expect(!session.isInProgress)
+    #expect(session.completedAt != nil)
+    #expect(scores[0].totalScore == 45)
+    #expect(scores[1].totalScore == 32)
+    #expect(scores[0].rank == 1)
+    #expect(scores[1].rank == 2)
+    #expect(session.winnerIDs == [players[0].id])
+  }
+
+  @Test func finishComputesSevenWondersScienceIntoTotal() throws {
+    let context = try makeContext()
+    let players = seedPlayers(1, in: context)
+    let session = SessionService.start(game: SevenWonders.shared, players: players, in: context)
+    let score = session.playerScores[0]
+
+    SessionService.finish(
+      session,
+      game: SevenWonders.shared,
+      inputs: [score.id: ["military": 5, "compass": 1, "tablet": 1, "gear": 1]]
+    )
+
+    #expect(score.totalScore == 15)             // 5 military + 10 science
+    #expect(score.categoryScores["science"] == 10)
+    #expect(score.categoryScores["compass"] == nil)  // raw input not stored as a score
+  }
 }
