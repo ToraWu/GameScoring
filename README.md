@@ -33,7 +33,7 @@ open GameScoring.xcodeproj
 - [x] Data model implemented (`Player`, `GameSession`, `PlayerScore`)
 - [x] Game layer (`ScoringGame` protocol, 7 Wonders + Wingspan, `GameRegistry`)
 - [x] M1 — Navigation shell (4-tab Liquid Glass `TabView`, Warm Table theme)
-- [ ] M2 — Players tab (roster CRUD)
+- [x] M2 — Players tab (roster CRUD: add, inline edit, swipe soft-delete)
 - [ ] M3 — Setup flow
 - [ ] M4 — Scoring screen
 - [ ] M5 — Results screen
