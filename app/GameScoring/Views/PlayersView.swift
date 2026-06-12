@@ -60,16 +60,21 @@ struct PlayersView: View {
   }
 }
 
-/// One roster row: avatar plus an inline-editable name field.
+/// One roster row: avatar plus an inline-editable name field. Edits route
+/// through `rename(to:)` so `updatedAt` is bumped (didSet doesn't fire on
+/// @Model properties).
 private struct PlayerRow: View {
   @Bindable var player: Player
 
   var body: some View {
     HStack(spacing: 14) {
       PlayerAvatar(name: player.name, colorHex: player.avatarColor)
-      TextField("Name", text: $player.name)
-        .font(.body)
-        .foregroundStyle(Theme.textPrimary)
+      TextField("Name", text: Binding(
+        get: { player.name },
+        set: { player.rename(to: $0) }
+      ))
+      .font(.body)
+      .foregroundStyle(Theme.textPrimary)
     }
     .padding(.vertical, 4)
   }

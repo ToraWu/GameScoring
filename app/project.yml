@@ -30,3 +30,33 @@ targets:
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+
+  GameScoringTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: GameScoringTests
+        excludes:
+          - "**/.DS_Store"
+    dependencies:
+      - target: GameScoring
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.toratgs.boardscore.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/GameScoring.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GameScoring"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+schemes:
+  GameScoring:
+    build:
+      targets:
+        GameScoring: all
+    test:
+      targets:
+        - GameScoringTests
+      gatherCoverageData: true
+    run: {}
+    profile: {}
+    analyze: {}
+    archive: {}

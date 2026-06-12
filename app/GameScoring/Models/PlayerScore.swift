@@ -10,14 +10,15 @@ final class PlayerScore: Timestamped {
   var session: GameSession?
 
   // Fractional VP supported; negatives allowed for penalty-heavy games.
-  var totalScore: Double { didSet { touch() } }
+  // Written via `record(...)`; `didSet` does not fire on @Model properties.
+  var totalScore: Double
 
   // JSON-encoded `[String: Double]` keyed by category ID. Accessed through the
   // `categoryScores` computed property below.
   var categoryScoresData: Data
 
   // 1 = winner. Tied players share a rank using competition ranking (1, 1, 3).
-  var rank: Int { didSet { touch() } }
+  var rank: Int
   var updatedAt: Date
 
   init(
@@ -47,6 +48,14 @@ final class PlayerScore: Timestamped {
       categoryScoresData = Self.encode(newValue)
       touch()
     }
+  }
+
+  /// Writes the computed result of a scoring pass and bumps `updatedAt` once.
+  func record(totalScore: Double, rank: Int, categoryScores: [String: Double]) {
+    self.totalScore = totalScore
+    self.rank = rank
+    self.categoryScoresData = Self.encode(categoryScores)
+    touch()
   }
 
   private static func encode(_ scores: [String: Double]) -> Data {

@@ -8,8 +8,11 @@ final class Player: Timestamped {
   // `.unique` gives local upsert semantics. The client-generated UUID already
   // guarantees uniqueness; drop this attribute if CloudKit sync is added later.
   @Attribute(.unique) var id: UUID
-  var name: String { didSet { touch() } }
-  var avatarColor: String { didSet { touch() } }
+  // Plain stored properties (predicate/sort friendly). `updatedAt` is bumped
+  // through the mutation methods below — property observers (`didSet`) do NOT
+  // fire on @Model stored properties, so touch() must be called explicitly.
+  var name: String
+  var avatarColor: String
   var createdAt: Date
   var updatedAt: Date
   var deletedAt: Date?
@@ -36,6 +39,18 @@ final class Player: Timestamped {
   /// True while the player is in the active roster (not soft-deleted).
   var isActive: Bool {
     deletedAt == nil
+  }
+
+  /// Renames the player and bumps `updatedAt`.
+  func rename(to newName: String) {
+    name = newName
+    touch()
+  }
+
+  /// Changes the avatar color and bumps `updatedAt`.
+  func setAvatarColor(_ hex: String) {
+    avatarColor = hex
+    touch()
   }
 
   /// Marks the player as removed from the roster while preserving history.
