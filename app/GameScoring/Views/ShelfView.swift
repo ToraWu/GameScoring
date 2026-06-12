@@ -27,6 +27,7 @@ struct ShelfView: View {
     }
     .fullScreenCover(item: $setupGame) { wrapper in
       GameSetupView(game: wrapper.game)
+        .environment(\.dismissFlow, DismissFlowAction { setupGame = nil })
     }
   }
 }

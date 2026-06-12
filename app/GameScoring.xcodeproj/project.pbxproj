@@ -12,6 +12,7 @@
 		0DD6F27121986F9E7B9DF986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F5B0A713B5644EC4BE03CE5 /* Assets.xcassets */; };
 		16945907E61C5FBAE21762DB /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA08B590A64904E2700DB0A1 /* ModelTests.swift */; };
 		1ED003151F1D6A6FAECB87D5 /* ScoringEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0364D8F8D393D66F595A390 /* ScoringEngineTests.swift */; };
+		296B573405A0B1FA23D6E4D1 /* DismissFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B8CE79C47816843505B7A9 /* DismissFlow.swift */; };
 		319F59281608A85C9E1A4C29 /* AvatarColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5E4EE00609A6A08678AAFA /* AvatarColorPicker.swift */; };
 		35564D4DD1C035AC47D3C152 /* ScoringGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3364F1AAE9FCEE4B37DF065 /* ScoringGameTests.swift */; };
 		402857AE21A070278F2D9EF0 /* ScoringEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C67F5E3EE0978D663EDD9 /* ScoringEngine.swift */; };
@@ -73,6 +74,7 @@
 		79238FE297A5D0DE7A4FE93D /* Timestamped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestamped.swift; sourceTree = "<group>"; };
 		79806D76474F83B08C0807C4 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		8F5B0A713B5644EC4BE03CE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		99B8CE79C47816843505B7A9 /* DismissFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissFlow.swift; sourceTree = "<group>"; };
 		B587D7FD8F8542D66DA7D2F9 /* GameSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSession.swift; sourceTree = "<group>"; };
 		BA08B590A64904E2700DB0A1 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		C384B5FF0B6DD42B5E623BDC /* SevenWonders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SevenWonders.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 		D17858741423B9ADFD8BC0B8 /* Design */ = {
 			isa = PBXGroup;
 			children = (
+				99B8CE79C47816843505B7A9 /* DismissFlow.swift */,
 				F9B413E0FD9D663817D0BC3C /* PlaceholderView.swift */,
 				65D3072F2AAC69F30E32AB14 /* Theme.swift */,
 			);
@@ -287,6 +290,7 @@
 				A0648CBD51BAB1BC7F893493 /* AddPlayerSheet.swift in Sources */,
 				319F59281608A85C9E1A4C29 /* AvatarColorPicker.swift in Sources */,
 				C0FBB0A3E0A86D0081C60B9F /* ContentView.swift in Sources */,
+				296B573405A0B1FA23D6E4D1 /* DismissFlow.swift in Sources */,
 				FBF5AE0215C2F6C60F5C06B3 /* GameRegistry.swift in Sources */,
 				5AD4A2888BD00056C4FA8E3F /* GameScoringApp.swift in Sources */,
 				95E495638C6E929CC168B981 /* GameSession.swift in Sources */,

@@ -110,6 +110,29 @@ struct SessionServiceTests {
     #expect(session.winnerIDs == [players[0].id])
   }
 
+  @Test func finishWithATieSharesRankOne() throws {
+    let context = try makeContext()
+    let players = seedPlayers(3, in: context)
+    let session = SessionService.start(game: Wingspan.shared, players: players, in: context)
+    let scores = session.playerScores.sorted {
+      ($0.player?.createdAt ?? .distantPast) < ($1.player?.createdAt ?? .distantPast)
+    }
+
+    // Players 0 and 1 tie exactly (same total and same eggs tiebreaker).
+    SessionService.finish(session, game: Wingspan.shared, inputs: [
+      scores[0].id: ["birds": 40, "eggs": 4],   // 44, eggs 4
+      scores[1].id: ["birds": 40, "eggs": 4],   // 44, eggs 4
+      scores[2].id: ["birds": 20, "eggs": 1],   // 21
+    ])
+
+    #expect(session.isTie)
+    #expect(session.completedAt != nil)
+    #expect(scores[0].rank == 1)
+    #expect(scores[1].rank == 1)
+    #expect(scores[2].rank == 3)  // competition ranking skips 2
+    #expect(Set(session.winnerIDs) == [players[0].id, players[1].id])
+  }
+
   @Test func finishComputesSevenWondersScienceIntoTotal() throws {
     let context = try makeContext()
     let players = seedPlayers(1, in: context)
