@@ -4,7 +4,7 @@ import SwiftUI
 /// Tapping a card opens the setup flow as a full-screen cover.
 struct ShelfView: View {
   private let games = GameRegistry.all
-  @State private var setupGame: SetupGame?
+  @State private var setupGame: GameRef?
 
   var body: some View {
     NavigationStack {
@@ -12,7 +12,7 @@ struct ShelfView: View {
         LazyVStack(spacing: 16) {
           ForEach(games, id: \.id) { game in
             Button {
-              setupGame = SetupGame(game: game)
+              setupGame = GameRef(game: game)
             } label: {
               GameCard(game: game)
             }
@@ -32,15 +32,9 @@ struct ShelfView: View {
   }
 }
 
-/// Identifiable wrapper so a chosen game can drive `fullScreenCover(item:)`.
-private struct SetupGame: Identifiable {
-  let game: any ScoringGame
-  var id: String { game.id }
-}
-
 /// A single game's cover card: full-width artwork with a title/player-count
 /// caption bar underneath, wrapped in a Liquid Glass surface.
-private struct GameCard: View {
+struct GameCard: View {
   let game: any ScoringGame
 
   var body: some View {

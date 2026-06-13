@@ -64,6 +64,8 @@ struct ScoringView: View {
     .navigationDestination(item: $finishedSession) { session in
       ResultsView(session: session)
     }
+    .onAppear(perform: loadInputs)
+    .onChange(of: inputs) { _, _ in persistInputs() }
   }
 
   // MARK: - Content
@@ -255,5 +257,22 @@ struct ScoringView: View {
   private func discard() {
     context.delete(session)
     dismiss()
+  }
+
+  /// Restores raw inputs from the session so an in-progress game can be resumed.
+  /// While a session is unfinished, `categoryScores` holds raw inputs; on Finish
+  /// they're replaced by computed VP.
+  private func loadInputs() {
+    guard inputs.isEmpty else { return }
+    for score in orderedScores where !score.categoryScores.isEmpty {
+      inputs[score.id] = score.categoryScores
+    }
+  }
+
+  /// Persists current raw inputs so progress survives backgrounding/relaunch.
+  private func persistInputs() {
+    for score in orderedScores {
+      if let raw = inputs[score.id] { score.categoryScores = raw }
+    }
   }
 }

@@ -37,6 +37,6 @@ open GameScoring.xcodeproj
 - [x] M3 — Setup flow (game picker → player select → create GameSession)
 - [x] M4 — Scoring screen (live inputs, computed VP, ranking, Finish/discard)
 - [x] M5 — Results screen (ranked standings, winner crown, tie badge, breakdown)
-- [ ] M6 — History + Home tabs
+- [x] M6 — History + Home tabs (filter, session detail, resume, featured game)
 - [ ] M7 — Polish
 - [ ] Testing complete
