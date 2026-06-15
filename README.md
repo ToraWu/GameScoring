@@ -38,5 +38,7 @@ open GameScoring.xcodeproj
 - [x] M4 — Scoring screen (live inputs, computed VP, ranking, Finish/discard)
 - [x] M5 — Results screen (ranked standings, winner crown, tie badge, breakdown)
 - [x] M6 — History + Home tabs (filter, session detail, resume, featured game)
-- [ ] M7 — Polish
-- [ ] Testing complete
+- [x] M7 — Polish (edge cases, keyboard dismiss, empty-state copy, visual QA)
+- [x] Testing complete (53 unit tests)
+
+**v1 feature-complete.**

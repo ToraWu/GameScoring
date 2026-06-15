@@ -15,6 +15,7 @@ struct ScoringView: View {
   @State private var currentIndex = 0
   @State private var showDiscardAlert = false
   @State private var finishedSession: GameSession?
+  @FocusState private var keyboardActive: Bool
 
   private var game: (any ScoringGame)? { GameRegistry.game(for: session.gameID) }
 
@@ -53,6 +54,10 @@ struct ScoringView: View {
         Button("Finish") { finish() }
           .fontWeight(.semibold)
           .disabled(game == nil)
+      }
+      ToolbarItemGroup(placement: .keyboard) {
+        Spacer()
+        Button("Done") { keyboardActive = false }
       }
     }
     .alert("Discard scores?", isPresented: $showDiscardAlert) {
@@ -183,6 +188,7 @@ struct ScoringView: View {
           .multilineTextAlignment(.trailing)
           .frame(width: 80)
           .textFieldStyle(.roundedBorder)
+          .focused($keyboardActive)
       case .computed:
         Text("\(formatted(computed[category.id] ?? 0)) VP")
           .font(.body.weight(.semibold))

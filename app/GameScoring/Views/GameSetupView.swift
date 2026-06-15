@@ -151,7 +151,9 @@ struct GameSetupView: View {
         .foregroundStyle(Theme.textSecondary)
 
       if availablePlayers.isEmpty {
-        Text("Everyone's in. Tap New to create another player.")
+        Text(roster.isEmpty
+          ? "No saved players yet — tap New to add one."
+          : "Everyone's added. Tap New to create another player.")
           .font(.footnote)
           .foregroundStyle(Theme.textSecondary)
           .padding(.vertical, 4)

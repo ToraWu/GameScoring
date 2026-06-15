@@ -56,4 +56,32 @@ struct RankingServiceTests {
     let result = RankingService.rank(game: Wingspan.shared, entries: [a, b])
     #expect(Set(result.winnerIDs) == [a.playerID, b.playerID])
   }
+
+  // MARK: - Edge cases
+
+  @Test func soloPlayerIsTheLoneWinner() {
+    let a = entry(0)  // even a zero score wins a solo game
+    let result = RankingService.rank(game: Wingspan.shared, entries: [a])
+    #expect(result.ranks[a.playerID] == 1)
+    #expect(result.winnerIDs == [a.playerID])
+  }
+
+  @Test func everyoneTiedAllRankOneAndAllWin() {
+    let players = (0..<4).map { _ in entry(30, treasury: 2) }
+    let result = RankingService.rank(game: SevenWonders.shared, entries: players)
+    for player in players {
+      #expect(result.ranks[player.playerID] == 1)
+    }
+    #expect(Set(result.winnerIDs) == Set(players.map(\.playerID)))
+  }
+
+  @Test func maxPlayersRankSequentially() {
+    // Seven distinct totals (7 Wonders max table) rank 1...7.
+    let players = (0..<7).map { entry(Double(70 - $0 * 10)) }
+    let result = RankingService.rank(game: SevenWonders.shared, entries: players)
+    for (index, player) in players.enumerated() {
+      #expect(result.ranks[player.playerID] == index + 1)
+    }
+    #expect(result.winnerIDs == [players[0].playerID])
+  }
 }
