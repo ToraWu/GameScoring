@@ -97,20 +97,16 @@ struct HomeView: View {
       Button {
         flow = .setup(GameRef(game: game))
       } label: {
-        VStack(spacing: 0) {
+        VStack(spacing: 12) {
           GameCard(game: game)
-          Button {
-            flow = .setup(GameRef(game: game))
-          } label: {
-            Text("Start a game  →")
-              .font(.headline)
-              .frame(maxWidth: .infinity)
-              .padding(.vertical, 14)
-          }
-          .buttonStyle(.borderedProminent)
-          .tint(Theme.accentPrimary)
-          .allowsHitTesting(false)  // outer button handles the tap
-          .padding(.top, 12)
+          // Styled like a prominent button but not interactive itself — the
+          // surrounding Button handles the tap (avoids nesting buttons).
+          Text("Start a game  →")
+            .font(.headline)
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 14)
+            .background(Theme.accentPrimary, in: .capsule)
         }
       }
       .buttonStyle(.plain)

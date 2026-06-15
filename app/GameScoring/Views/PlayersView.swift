@@ -82,5 +82,5 @@ private struct PlayerRow: View {
 
 #Preview {
   PlayersView()
-    .modelContainer(for: Player.self, inMemory: true)
+    .modelContainer(.preview)
 }

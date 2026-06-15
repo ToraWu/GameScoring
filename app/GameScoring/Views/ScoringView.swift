@@ -276,9 +276,11 @@ struct ScoringView: View {
   }
 
   /// Persists current raw inputs so progress survives backgrounding/relaunch.
+  /// Only writes scores that actually changed to avoid spurious `updatedAt` bumps.
   private func persistInputs() {
     for score in orderedScores {
-      if let raw = inputs[score.id] { score.categoryScores = raw }
+      guard let raw = inputs[score.id], raw != score.categoryScores else { continue }
+      score.categoryScores = raw
     }
   }
 }
