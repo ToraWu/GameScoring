@@ -130,13 +130,27 @@
 - As the form scrolls **down**, the header **collapses** to reclaim space: the big total shrinks to an inline value and avatars shrink; scrolling back up re-expands it. Driven by scroll offset (`onScrollGeometryChange`).
 - Background fills the **entire screen** (ignores the bottom safe area) so no gap shows above the keyboard.
 
-### Inputs
-- Each direct category is a **stepper**: `[ − ]  value  [ + ]`. The value is also tappable for direct keypad entry; − / + adjust by 1 (long-press to repeat).
-- **Per-category icon**, tinted with the game's colour system (see *Category Visual System*), shown left of the label for fast identification.
-- **Negative-capable categories** (e.g. 7 Wonders Military) allow values below 0 via the stepper / a leading `−` on the keypad; **negative values render in a distinct colour** (red `#dc2626`).
-- **Computed categories** (e.g. Science) stay read-only and update live as their source inputs change.
-- **Zero display:** an *untouched* field shows a grey placeholder `0`; once the user edits it (steps or types), the value — including an explicit `0` — renders in the **solid** text colour.
-- **Keyboard dismissal:** scrolling dismisses the keypad (interactive); tapping outside a field also dismisses. **No separate "Done" toolbar button.**
+### Inputs (v1.02 — in-app keypad)
+- Each direct category is a **stepper**: `[ − ]  value  [ + ]`. − / + adjust by 1.
+- **Tapping the value** opens a **docked in-app keypad** (no system keyboard) for
+  that category. The edited row's value is highlighted while the keypad is open.
+- **Keypad** (themed, bottom-docked): digits `0–9`, `±` (negative, only enabled
+  for `allowsNegative` categories), `⌫` (delete last digit), `C` (clear to 0),
+  quick-add chips `+1 / +5 / +10`, and `Next` (advance to the next category) plus
+  a chevron-down to close.
+  - First digit after opening **replaces** the value; subsequent digits append
+    (calculator-style). `⌫` / `±` / chips switch to edit-in-place.
+- **Per-category icon**, tinted with the game's colour system (see *Category
+  Visual System*), shown left of the label for fast identification.
+- **Negative values render red** (`#dc2626`); `±` and the stepper produce them.
+- **Computed categories** (e.g. Science) stay read-only and update live.
+- **Zero display:** an *untouched* value shows grey placeholder `0`; once edited
+  (stepped or keyed) — including an explicit `0` — it renders **solid**.
+- Switching player or scrolling the header **closes** the keypad.
+
+> Deferred to a later release: long-press-to-accelerate steppers, a per-category
+> input-style hint (counter / keypad / tally / slider), and concept C "focus
+> mode". See the v1.02 brainstorm.
 
 ### Interactions
 | Action | Result |

@@ -18,7 +18,10 @@ struct ScoringView: View {
   @State private var showDiscardAlert = false
   @State private var finishedSession: GameSession?
   @State private var collapse: CGFloat = 0
-  @FocusState private var keyboardActive: Bool
+  /// Category currently being edited by the in-app keypad, if any.
+  @State private var editingCategoryID: String?
+  /// True when the next digit should replace (not append to) the value.
+  @State private var keypadFresh = false
 
   private var game: (any ScoringGame)? { GameRegistry.game(for: session.gameID) }
 
@@ -71,7 +74,27 @@ struct ScoringView: View {
     .navigationDestination(item: $finishedSession) { session in
       ResultsView(session: session)
     }
+    .safeAreaInset(edge: .bottom) { keypadDock }
     .onAppear(perform: loadInputs)
+  }
+
+  @ViewBuilder
+  private var keypadDock: some View {
+    if let categoryID = editingCategoryID,
+       let category = game?.categories.first(where: { $0.id == categoryID }) {
+      ScoreKeypad(
+        categoryName: category.name,
+        allowsNegative: category.allowsNegative,
+        onDigit: { keypadDigit($0) },
+        onDelete: keypadDelete,
+        onClear: { setEditing(0) },
+        onSign: keypadSign,
+        onAdd: { keypadAdd($0) },
+        onNext: keypadNext,
+        onClose: { editingCategoryID = nil }
+      )
+      .transition(.move(edge: .bottom))
+    }
   }
 
   // MARK: - Content
@@ -119,7 +142,7 @@ struct ScoringView: View {
     .frame(maxWidth: .infinity)
     .background(Theme.background)
     .contentShape(.rect)
-    .onTapGesture { keyboardActive = false }  // tap header to dismiss keypad
+    .onTapGesture { editingCategoryID = nil }  // tap header to close keypad
   }
 
   private func playerStrip(currentAvatar: CGFloat) -> some View {
@@ -167,7 +190,6 @@ struct ScoringView: View {
         }
         .padding(20)
       }
-      .scrollDismissesKeyboard(.interactively)
       .onScrollGeometryChange(for: CGFloat.self) { $0.contentOffset.y } action: { _, y in
         collapse = min(1, max(0, y / 56))
       }
@@ -224,8 +246,9 @@ struct ScoringView: View {
           value: inputs[score.id]?[category.id] ?? 0,
           allowsNegative: category.allowsNegative,
           touched: touched.contains(touchKey(score.id, category.id)),
-          onSet: { newValue, mark in setInput(score.id, category.id, newValue, mark) },
-          keyboardActive: $keyboardActive
+          isEditing: editingCategoryID == category.id,
+          onStep: { delta in step(score.id, category, by: delta) },
+          onTapValue: { openKeypad(category.id) }
         )
       case .computed:
         Text("\(formatted(computed[category.id] ?? 0)) VP")
@@ -293,11 +316,77 @@ struct ScoringView: View {
     String(Int(value.rounded()))
   }
 
+  // MARK: - Keypad
+
+  private var editingValue: Double {
+    guard let score = currentScore, let id = editingCategoryID else { return 0 }
+    return inputs[score.id]?[id] ?? 0
+  }
+
+  private func openKeypad(_ categoryID: String) {
+    editingCategoryID = categoryID
+    keypadFresh = true  // first digit replaces the existing value
+  }
+
+  private func setEditing(_ value: Double) {
+    guard let score = currentScore, let id = editingCategoryID else { return }
+    setInput(score.id, id, value, true)
+    keypadFresh = false
+  }
+
+  private func keypadDigit(_ digit: Int) {
+    let current = editingValue
+    let magnitude = abs(Int(current))
+    let negative = current < 0
+    let newMagnitude = keypadFresh ? digit : magnitude * 10 + digit
+    setEditing(Double(negative ? -newMagnitude : newMagnitude))
+  }
+
+  private func keypadDelete() {
+    let current = Int(editingValue)
+    let newMagnitude = abs(current) / 10
+    setEditing(Double(current < 0 ? -newMagnitude : newMagnitude))
+  }
+
+  private func keypadSign() {
+    guard let category = game?.categories.first(where: { $0.id == editingCategoryID }),
+          category.allowsNegative else { return }
+    setEditing(-editingValue)
+  }
+
+  private func keypadAdd(_ delta: Double) {
+    guard let category = game?.categories.first(where: { $0.id == editingCategoryID }) else { return }
+    setEditing(clamp(editingValue + delta, allowsNegative: category.allowsNegative))
+  }
+
+  /// Advance the keypad to the next direct-input category, wrapping to the first.
+  private func keypadNext() {
+    guard let game, let current = editingCategoryID else { return }
+    let inputOnly = ScoringEngine.inputOnlyIDs(for: game)
+    let ids = game.categories
+      .filter { if case .integer = $0.inputType { return true } else { return false } }
+      .sorted { $0.displayOrder < $1.displayOrder }
+      .map(\.id)
+    // Order with scoring categories first, then symbols (matches the form layout).
+    let ordered = ids.filter { !inputOnly.contains($0) } + ids.filter { inputOnly.contains($0) }
+    guard let index = ordered.firstIndex(of: current), !ordered.isEmpty else { return }
+    openKeypad(ordered[(index + 1) % ordered.count])
+  }
+
   // MARK: - Actions
+
+  private func step(_ scoreID: UUID, _ category: ScoreCategory, by delta: Double) {
+    let current = inputs[scoreID]?[category.id] ?? 0
+    setInput(scoreID, category.id, clamp(current + delta, allowsNegative: category.allowsNegative), true)
+  }
+
+  private func clamp(_ value: Double, allowsNegative: Bool) -> Double {
+    (!allowsNegative && value < 0) ? 0 : value
+  }
 
   private func switchTo(_ index: Int) {
     guard orderedScores.indices.contains(index) else { return }
-    keyboardActive = false
+    editingCategoryID = nil
     withAnimation(.snappy) { currentIndex = index }
   }
 

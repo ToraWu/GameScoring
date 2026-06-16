@@ -27,7 +27,7 @@ final class ScoringFlowUITests: XCTestCase {
 
     // Ada: military = 7 → total 7 VP.
     for _ in 0..<7 { plus.tap() }
-    XCTAssertEqual(app.textFields["military.value"].value as? String, "7")
+    XCTAssertEqual(app.buttons["military.value"].label, "7")
     XCTAssertEqual(app.staticTexts["scoring.total"].label, "7 VP")
 
     // Advance to Boris (last player → button is Finish).
@@ -53,7 +53,7 @@ final class ScoringFlowUITests: XCTestCase {
 
     // From 0, three decrements → −3 (military allows negatives).
     for _ in 0..<3 { minus.tap() }
-    XCTAssertEqual(app.textFields["military.value"].value as? String, "-3")
+    XCTAssertEqual(app.buttons["military.value"].label, "-3")
     XCTAssertEqual(app.staticTexts["scoring.total"].label, "-3 VP")
   }
 
@@ -66,6 +66,6 @@ final class ScoringFlowUITests: XCTestCase {
 
     // Treasury does not allow negatives — stays at 0.
     for _ in 0..<3 { minus.tap() }
-    XCTAssertEqual(app.textFields["treasury.value"].value as? String, "0")
+    XCTAssertEqual(app.buttons["treasury.value"].label, "0")
   }
 }

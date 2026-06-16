@@ -52,3 +52,8 @@ open GameScoring.xcodeproj
 - [x] In-app version (release + dev build) on the Home footer
 - [x] XCUITest target driving the scoring/results flows
 - [x] App locked to light appearance (Warm Table is light-only)
+
+### v1.02 (score input)
+- [x] In-app docked keypad replaces the system keyboard: digits, ±, backspace,
+  clear, `+1/+5/+10` chips, Next; steppers stay for ±1 nudges
+- [x] Fourth game: Ticket to Ride (negative-ticket penalties)

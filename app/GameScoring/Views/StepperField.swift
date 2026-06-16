@@ -1,53 +1,55 @@
 import SwiftUI
 
-/// A `[ − ]  value  [ + ]` score input. The value is tappable for direct keypad
-/// entry; − / + adjust by one. Untouched zeros show as a grey placeholder;
-/// touched values (including an explicit 0) show solid; negatives show red.
-///
-/// A local text buffer backs the field so partial entries survive — notably a
-/// leading "-" while typing a negative number (which would otherwise be erased
-/// because it parses to 0).
+/// A `[ − ]  value  [ + ]` score control. − / + nudge by one; tapping the value
+/// opens the in-app keypad (`ScoreKeypad`) for precise entry. Untouched zeros
+/// show as grey placeholder; touched values (incl. 0) show solid; negatives red.
 struct StepperField: View {
   let categoryID: String
   let value: Double
   let allowsNegative: Bool
   let touched: Bool
-  /// Reports a new value and whether the field should be marked as touched.
-  let onSet: (_ value: Double, _ markTouched: Bool) -> Void
-
-  @FocusState.Binding var keyboardActive: Bool
-  @State private var text: String = ""
+  /// True while this field is the one the keypad is editing.
+  let isEditing: Bool
+  /// Step by a delta (±1 from the buttons).
+  let onStep: (_ delta: Double) -> Void
+  /// Open the keypad for this field.
+  let onTapValue: () -> Void
 
   private static let negativeColor = Color(hex: 0xdc2626)
 
-  private var display: String {
-    (!touched && value == 0) ? "" : String(Int(value))
+  private var displayText: String {
+    (!touched && value == 0) ? "0" : String(Int(value))
   }
+
+  private var isPlaceholder: Bool { !touched && value == 0 }
 
   var body: some View {
     HStack(spacing: 10) {
-      stepButton("minus") { commit(value - 1) }
+      stepButton("minus") { onStep(-1) }
         .accessibilityIdentifier("\(categoryID).minus")
 
-      TextField("0", text: $text)
-        .keyboardType(allowsNegative ? .numbersAndPunctuation : .numberPad)
-        .multilineTextAlignment(.center)
-        .font(.body.weight(.semibold).monospacedDigit())
-        .foregroundStyle(value < 0 ? Self.negativeColor : Theme.textPrimary)
-        .frame(width: 52)
-        .focused($keyboardActive)
-        .onChange(of: text) { _, new in handleTyping(new) }
-        .accessibilityIdentifier("\(categoryID).value")
+      Button(action: onTapValue) {
+        Text(displayText)
+          .font(.body.weight(.semibold).monospacedDigit())
+          .foregroundStyle(valueColor)
+          .frame(minWidth: 52)
+          .padding(.vertical, 4)
+          .background(
+            isEditing ? Theme.accentPrimary.opacity(0.15) : Color.clear,
+            in: .rect(cornerRadius: 8)
+          )
+      }
+      .buttonStyle(.plain)
+      .accessibilityIdentifier("\(categoryID).value")
 
-      stepButton("plus") { commit(value + 1) }
+      stepButton("plus") { onStep(1) }
         .accessibilityIdentifier("\(categoryID).plus")
     }
-    .onAppear { text = display }
-    .onChange(of: value) { _, newValue in
-      // Reflect external changes (stepper, player switch) but don't clobber an
-      // in-progress entry that already equals the value (e.g. a lone "-" → 0).
-      if parse(text) != newValue { text = display }
-    }
+  }
+
+  private var valueColor: Color {
+    if value < 0 { return Self.negativeColor }
+    return isPlaceholder ? Theme.textSecondary.opacity(0.5) : Theme.textPrimary
   }
 
   private func stepButton(_ symbol: String, action: @escaping () -> Void) -> some View {
@@ -59,29 +61,5 @@ struct StepperField: View {
         .background(Theme.accentPrimary.opacity(0.12), in: .circle)
     }
     .buttonStyle(.plain)
-  }
-
-  private func handleTyping(_ new: String) {
-    let sanitized = sanitize(new)
-    if sanitized != new { text = sanitized }  // reformat in place
-    onSet(parse(sanitized), true)
-  }
-
-  private func commit(_ newValue: Double) {
-    let clamped = clamp(newValue)
-    onSet(clamped, true)
-    text = String(Int(clamped))
-  }
-
-  private func sanitize(_ raw: String) -> String {
-    let digits = raw.filter(\.isNumber)
-    let negative = allowsNegative && raw.hasPrefix("-")
-    return (negative ? "-" : "") + digits
-  }
-
-  private func parse(_ raw: String) -> Double { Double(raw) ?? 0 }
-
-  private func clamp(_ v: Double) -> Double {
-    (!allowsNegative && v < 0) ? 0 : v
   }
 }

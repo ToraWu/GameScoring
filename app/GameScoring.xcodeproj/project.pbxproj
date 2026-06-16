@@ -55,6 +55,7 @@
 		F2D8C3ACB546E78E36511DD5 /* StepperField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D7DB48C14A79EF6B63FC95 /* StepperField.swift */; };
 		F2FB7AEEB8E7B2C0C719EB7E /* HistoryStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F94A7378E2D17CEA003D762 /* HistoryStatsTests.swift */; };
 		FA8201545B75F95296638E71 /* SessionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3A47096F1EF36B444043E /* SessionServiceTests.swift */; };
+		FBA9D61463F7EAB718230BAB /* ScoreKeypad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702045AE20364D499C46F5B3 /* ScoreKeypad.swift */; };
 		FBF5AE0215C2F6C60F5C06B3 /* GameRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146285DCA89B87F55B67EAD4 /* GameRegistry.swift */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,7 @@
 		65D3072F2AAC69F30E32AB14 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		66BB7449D3D2B2410193DF65 /* Wingspan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wingspan.swift; sourceTree = "<group>"; };
 		69A45E49B164400F677583F1 /* PreviewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSupport.swift; sourceTree = "<group>"; };
+		702045AE20364D499C46F5B3 /* ScoreKeypad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreKeypad.swift; sourceTree = "<group>"; };
 		758DA2E282F8CF36AB39D3B4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		762038FE1753AA4FD3D17696 /* ResultsFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsFlowUITests.swift; sourceTree = "<group>"; };
 		79238FE297A5D0DE7A4FE93D /* Timestamped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestamped.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				45CEF9649D577CD34F861987 /* PlayerAvatar.swift */,
 				149195FE27028FEC88DB8990 /* PlayersView.swift */,
 				5B86E45488C7978D9B83B007 /* ResultsView.swift */,
+				702045AE20364D499C46F5B3 /* ScoreKeypad.swift */,
 				375566FCDFEA8178326567A5 /* ScoringView.swift */,
 				4BC368A2E537F358A728C03B /* ShelfView.swift */,
 				8A8B3D7B568C270634498AAA /* StandingsView.swift */,
@@ -396,6 +399,7 @@
 				3F5574615EFAA630530C6DAE /* PreviewSupport.swift in Sources */,
 				ACF83005B92CCD98ADABC9DE /* RankingService.swift in Sources */,
 				EAACE68B758DE60D6E5DC51B /* ResultsView.swift in Sources */,
+				FBA9D61463F7EAB718230BAB /* ScoreKeypad.swift in Sources */,
 				402857AE21A070278F2D9EF0 /* ScoringEngine.swift in Sources */,
 				DA65E3C59D60993F6B04B4D9 /* ScoringGame.swift in Sources */,
 				7118BF3C9235DC6EE39845B8 /* ScoringView.swift in Sources */,
@@ -613,7 +617,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"GameScoring/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -626,7 +630,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.toratgs.boardscore;
 				PRODUCT_NAME = GameScoring;
 				SDKROOT = iphoneos;
@@ -675,7 +679,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"GameScoring/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -688,7 +692,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.toratgs.boardscore;
 				PRODUCT_NAME = GameScoring;
 				SDKROOT = iphoneos;

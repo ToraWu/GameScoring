@@ -28,6 +28,13 @@ final class ScreenshotUITests: XCTestCase {
     app.buttons["treasury.plus"].tap()
     snap(app, "ScoreEntry")
 
+    // Open the in-app keypad on a category and capture it.
+    app.buttons["civilian.value"].tap()
+    waitFor(app.buttons["keypad.7"], 8)
+    app.buttons["keypad.7"].tap()
+    snap(app, "Keypad")
+    app.buttons["keypad.done"].tap()
+
     app.buttons["scoring.next"].tap()
     let borisPlus = app.buttons["military.plus"]
     waitFor(borisPlus)
