@@ -38,6 +38,14 @@ struct PlayersView: View {
       .sheet(isPresented: $showingAdd) {
         AddPlayerSheet()
       }
+      .navigationDestination(for: Player.self) { player in
+        PlayerDetailView(player: player)
+      }
+      .navigationDestination(for: GameSession.self) { session in
+        StandingsView(session: session)
+          .navigationTitle(session.createdAt.formatted(date: .abbreviated, time: .omitted))
+          .navigationBarTitleDisplayMode(.inline)
+      }
     }
   }
 
@@ -68,7 +76,13 @@ private struct PlayerRow: View {
 
   var body: some View {
     HStack(spacing: 14) {
-      PlayerAvatar(name: player.name, colorHex: player.avatarColor)
+      // Tap the avatar to open the player's stats; the name stays inline-editable.
+      NavigationLink(value: player) {
+        PlayerAvatar(name: player.name, colorHex: player.avatarColor)
+      }
+      .buttonStyle(.plain)
+      .accessibilityIdentifier("playerAvatar.\(player.name)")
+
       TextField("Name", text: Binding(
         get: { player.name },
         set: { player.rename(to: $0) }

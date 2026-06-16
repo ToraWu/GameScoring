@@ -57,3 +57,5 @@ open GameScoring.xcodeproj
 - [x] In-app docked keypad replaces the system keyboard: digits, ±, backspace,
   clear, `+1/+5/+10` chips, Next; steppers stay for ±1 nudges
 - [x] Fourth game: Ticket to Ride (negative-ticket penalties)
+- [x] Player detail + stats (games, wins, win rate, per-game breakdown, recent
+  games) — tap a player's avatar

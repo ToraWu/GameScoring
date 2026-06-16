@@ -37,7 +37,9 @@ struct GameScoringApp: App {
       .appendingPathComponent("uitest-\(UUID().uuidString).store")
     let container = try ModelContainer(for: schema, configurations: [ModelConfiguration(url: url)])
 
-    let needsRoster = args.contains("-uitestSeed") || args.contains("-uitestSeedInProgress")
+    let needsRoster = args.contains("-uitestSeed")
+      || args.contains("-uitestSeedInProgress")
+      || args.contains("-uitestSeedCompleted")
     if needsRoster {
       let context = container.mainContext
       let base = Date()
@@ -57,6 +59,21 @@ struct GameScoringApp: App {
           players: Array(players.prefix(3)),
           in: context
         )
+      }
+      // Seed a finished 7 Wonders game (Ada beats Boris) for stats/history.
+      if args.contains("-uitestSeedCompleted") {
+        let session = SessionService.start(
+          game: SevenWonders.shared,
+          players: Array(players.prefix(2)),
+          in: context
+        )
+        let scores = session.playerScores.sorted {
+          ($0.player?.createdAt ?? .distantPast) < ($1.player?.createdAt ?? .distantPast)
+        }
+        SessionService.finish(session, game: SevenWonders.shared, inputs: [
+          scores[0].id: ["military": 10],
+          scores[1].id: ["military": 5],
+        ])
       }
     }
     return container

@@ -5,10 +5,15 @@ extension XCUIApplication {
   /// Launches with a fresh, empty on-disk store. Pass `seedPlayers` to also
   /// insert a known roster (Ada, Boris, Chen, Dee); pass `inProgressGame` to
   /// additionally seed an in-progress 7 Wonders session (for the resume flow).
-  func launchFresh(seedPlayers: Bool = false, inProgressGame: Bool = false) {
+  func launchFresh(
+    seedPlayers: Bool = false,
+    inProgressGame: Bool = false,
+    completedGame: Bool = false
+  ) {
     launchArguments += ["-uitestClean"]
     if seedPlayers { launchArguments += ["-uitestSeed"] }
     if inProgressGame { launchArguments += ["-uitestSeedInProgress"] }
+    if completedGame { launchArguments += ["-uitestSeedCompleted"] }
     launch()
   }
 }
