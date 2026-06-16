@@ -1,0 +1,108 @@
+<svg width="600" height="420" viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyT" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e6cf9a"/>
+      <stop offset="0.6" stop-color="#e8bd78"/>
+      <stop offset="1" stop-color="#e3a45c"/>
+    </linearGradient>
+    <linearGradient id="groundT" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cdb079"/>
+      <stop offset="1" stop-color="#b3925a"/>
+    </linearGradient>
+    <linearGradient id="boilerT" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9a5a2a"/>
+      <stop offset="0.5" stop-color="#7e451b"/>
+      <stop offset="1" stop-color="#5f3413"/>
+    </linearGradient>
+    <linearGradient id="cabT" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a8612c"/>
+      <stop offset="1" stop-color="#7a431a"/>
+    </linearGradient>
+    <radialGradient id="sunT" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fbe7ad"/>
+      <stop offset="1" stop-color="#eeb863"/>
+    </radialGradient>
+    <radialGradient id="vignT" cx="0.5" cy="0.45" r="0.75">
+      <stop offset="0.6" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#33200b" stop-opacity="0.36"/>
+    </radialGradient>
+    <filter id="softT" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="grainT" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+    </filter>
+  </defs>
+
+  <!-- Sky + sun -->
+  <rect width="600" height="420" fill="url(#skyT)"/>
+  <circle cx="470" cy="116" r="96" fill="#f3d792" opacity="0.4" filter="url(#softT)"/>
+  <circle cx="470" cy="116" r="46" fill="url(#sunT)"/>
+
+  <!-- Ground -->
+  <rect y="312" width="600" height="108" fill="url(#groundT)"/>
+  <!-- Rails (perspective) -->
+  <g stroke="#6e5333" stroke-width="4">
+    <line x1="40" y1="372" x2="560" y2="372"/>
+    <line x1="40" y1="392" x2="560" y2="392"/>
+  </g>
+  <g stroke="#7a5c38" stroke-width="6">
+    <line x1="70" y1="360" x2="64" y2="404"/>
+    <line x1="160" y1="360" x2="156" y2="404"/>
+    <line x1="250" y1="360" x2="248" y2="404"/>
+    <line x1="340" y1="360" x2="340" y2="404"/>
+    <line x1="430" y1="360" x2="432" y2="404"/>
+    <line x1="520" y1="360" x2="524" y2="404"/>
+  </g>
+
+  <!-- Locomotive shadow -->
+  <ellipse cx="300" cy="372" rx="210" ry="14" fill="#33200b" opacity="0.25" filter="url(#softT)"/>
+
+  <!-- Smoke -->
+  <g fill="#efe2cf" opacity="0.85">
+    <circle cx="176" cy="150" r="20"/>
+    <circle cx="200" cy="128" r="26"/>
+    <circle cx="232" cy="112" r="32"/>
+    <circle cx="270" cy="104" r="24" opacity="0.6"/>
+  </g>
+
+  <!-- Locomotive -->
+  <!-- cab -->
+  <rect x="120" y="206" width="96" height="96" rx="8" fill="url(#cabT)"/>
+  <rect x="134" y="220" width="40" height="36" rx="5" fill="#f0deb6" opacity="0.85"/>
+  <rect x="120" y="300" width="96" height="10" fill="#4f2f14"/>
+  <!-- boiler -->
+  <rect x="206" y="232" width="240" height="70" rx="35" fill="url(#boilerT)"/>
+  <rect x="206" y="244" width="240" height="10" rx="5" fill="#ffffff" opacity="0.12"/>
+  <!-- smokebox front -->
+  <circle cx="446" cy="267" r="35" fill="#6f3d18"/>
+  <circle cx="446" cy="267" r="14" fill="#caa53d"/>
+  <!-- funnel -->
+  <path d="M168 232 h36 l-6 -36 h-24 z" fill="#5f3413"/>
+  <!-- dome -->
+  <circle cx="300" cy="226" r="18" fill="#6f3d18"/>
+  <!-- cowcatcher -->
+  <polygon points="446,302 492,302 470,330 446,330" fill="#5a3414"/>
+
+  <!-- wheels -->
+  <g fill="#3f2710">
+    <circle cx="250" cy="312" r="30"/>
+    <circle cx="330" cy="312" r="30"/>
+    <circle cx="410" cy="312" r="22"/>
+    <circle cx="150" cy="312" r="20"/>
+  </g>
+  <g fill="#caa53d">
+    <circle cx="250" cy="312" r="9"/>
+    <circle cx="330" cy="312" r="9"/>
+    <circle cx="410" cy="312" r="7"/>
+    <circle cx="150" cy="312" r="6"/>
+  </g>
+  <!-- coupling rod -->
+  <rect x="244" y="307" width="92" height="8" rx="4" fill="#8a6a3a"/>
+
+  <!-- Grain + vignette -->
+  <rect width="600" height="420" filter="url(#grainT)" opacity="0.5"/>
+  <rect width="600" height="420" fill="url(#vignT)"/>
+</svg>

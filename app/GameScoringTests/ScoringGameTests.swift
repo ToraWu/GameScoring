@@ -88,15 +88,40 @@ struct CarcassonneScoringTests {
   }
 }
 
+struct TicketToRideScoringTests {
+  private let game = TicketToRide.shared
+
+  @Test func ticketsAllowNegativeButRoutesDoNot() {
+    #expect(game.categories.first { $0.id == "tickets" }?.allowsNegative == true)
+    #expect(game.categories.first { $0.id == "routes" }?.allowsNegative == false)
+  }
+
+  @Test func uncompletedTicketsSubtractFromTotal() {
+    // 60 route points + 10 longest − 8 ticket penalty = 62.
+    let total = ScoringEngine.total(for: game, inputs: [
+      "routes": 60, "longest": 10, "tickets": -8,
+    ])
+    #expect(total == 62)
+  }
+
+  @Test func tiesBreakByTickets() {
+    let a = RankingService.Entry(playerID: UUID(), total: 70, categoryScores: ["tickets": 12])
+    let b = RankingService.Entry(playerID: UUID(), total: 70, categoryScores: ["tickets": 20])
+    let result = RankingService.rank(game: game, entries: [a, b])
+    #expect(result.winnerIDs == [b.playerID])
+  }
+}
+
 struct GameRegistryTests {
   @Test func registersAllGames() {
-    #expect(GameRegistry.all.count == 3)
+    #expect(GameRegistry.all.count == 4)
   }
 
   @Test func looksUpByID() {
     #expect(GameRegistry.game(for: "7wonders")?.name == "7 Wonders")
     #expect(GameRegistry.game(for: "wingspan")?.name == "Wingspan")
     #expect(GameRegistry.game(for: "carcassonne")?.name == "Carcassonne")
+    #expect(GameRegistry.game(for: "tickettoride")?.name == "Ticket to Ride")
   }
 
   @Test func unknownIDReturnsNil() {

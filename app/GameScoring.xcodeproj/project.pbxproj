@@ -27,6 +27,7 @@
 		5BCA993F03F45E9911F5ED51 /* ScoringFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E6048DA56080384BA439A0 /* ScoringFlowUITests.swift */; };
 		641998D4C05129D91A002797 /* GameRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C8E08BF9B831D565F1B7B6 /* GameRef.swift */; };
 		680B19AB0D884E5E1276C131 /* SmokeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95950B791D1E145EB68AF9B2 /* SmokeUITests.swift */; };
+		6DD3E371A586CA1256CC1E3F /* TicketToRide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501CAF4AA4516D5180D63026 /* TicketToRide.swift */; };
 		7118BF3C9235DC6EE39845B8 /* ScoringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375566FCDFEA8178326567A5 /* ScoringView.swift */; };
 		769C166E45205B75E70E999D /* Timestamped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79238FE297A5D0DE7A4FE93D /* Timestamped.swift */; };
 		7A47309872B68D1C0CA47414 /* SevenWonders.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384B5FF0B6DD42B5E623BDC /* SevenWonders.swift */; };
@@ -88,7 +89,8 @@
 		45CEF9649D577CD34F861987 /* PlayerAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAvatar.swift; sourceTree = "<group>"; };
 		4BC368A2E537F358A728C03B /* ShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfView.swift; sourceTree = "<group>"; };
 		4F94A7378E2D17CEA003D762 /* HistoryStatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStatsTests.swift; sourceTree = "<group>"; };
-		5337AA95A57163C3F09F925E /* GameScoring.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GameScoring.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		501CAF4AA4516D5180D63026 /* TicketToRide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketToRide.swift; sourceTree = "<group>"; };
+		5337AA95A57163C3F09F925E /* GameScoring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameScoring.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B86E45488C7978D9B83B007 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		5C913CC29EBC94CE97BE6E86 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		5D91965C586CEAF9D0CB568E /* GameSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSetupView.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				2129A09D2F6B139DD87842B3 /* ScoringGame.swift */,
 				79806D76474F83B08C0807C4 /* SessionService.swift */,
 				C384B5FF0B6DD42B5E623BDC /* SevenWonders.swift */,
+				501CAF4AA4516D5180D63026 /* TicketToRide.swift */,
 				66BB7449D3D2B2410193DF65 /* Wingspan.swift */,
 			);
 			path = Games;
@@ -322,7 +325,6 @@
 						TestTargetID = ED652ED8522C4F3DCCDC12A1;
 					};
 					ED652ED8522C4F3DCCDC12A1 = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -396,6 +398,7 @@
 				82D2CFF7968CE72F8EE08A8C /* StandingsView.swift in Sources */,
 				F2D8C3ACB546E78E36511DD5 /* StepperField.swift in Sources */,
 				465AEB2B403B2AAAAF5652BC /* Theme.swift in Sources */,
+				6DD3E371A586CA1256CC1E3F /* TicketToRide.swift in Sources */,
 				769C166E45205B75E70E999D /* Timestamped.swift in Sources */,
 				8C2A4A53A032B3844A379BFF /* Wingspan.swift in Sources */,
 			);
@@ -601,9 +604,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"GameScoring/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B64V3T3HWK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = BoardScore;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -663,9 +666,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"GameScoring/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B64V3T3HWK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = BoardScore;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

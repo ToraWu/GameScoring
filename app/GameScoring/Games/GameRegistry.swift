@@ -6,6 +6,7 @@ enum GameRegistry {
     SevenWonders.shared,
     Wingspan.shared,
     Carcassonne.shared,
+    TicketToRide.shared,
   ]
 
   static func game(for id: String) -> (any ScoringGame)? {
