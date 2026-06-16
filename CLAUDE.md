@@ -25,7 +25,8 @@ before building or the file won't be in the target.
 
 ## Versioning — required
 
-The app shows **two versions** on the Home tab footer:
+The app shows **two versions** on the Home tab footer and in the About sheet
+(gear in the Shelf nav bar), both read from `Bundle.main` via `AppVersion`:
 
 - **Release version** — `MARKETING_VERSION` in `app/project.yml` →
   `CFBundleShortVersionString` (e.g. `1.0.1`). Bump per release.

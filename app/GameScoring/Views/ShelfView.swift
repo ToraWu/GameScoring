@@ -5,6 +5,7 @@ import SwiftUI
 struct ShelfView: View {
   private let games = GameRegistry.all
   @State private var setupGame: GameRef?
+  @State private var showingSettings = false
 
   var body: some View {
     NavigationStack {
@@ -25,6 +26,15 @@ struct ShelfView: View {
       }
       .background(Theme.background)
       .navigationTitle("Shelf")
+      .toolbar {
+        ToolbarItem(placement: .primaryAction) {
+          Button("About", systemImage: "gearshape") { showingSettings = true }
+            .accessibilityIdentifier("shelf.settings")
+        }
+      }
+      .sheet(isPresented: $showingSettings) {
+        SettingsView()
+      }
     }
     .fullScreenCover(item: $setupGame) { wrapper in
       NavigationStack {

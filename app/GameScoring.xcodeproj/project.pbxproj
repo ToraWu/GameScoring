@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00C8EA3C71BCBA94790319E2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E916C8EA354401A3DF91DF30 /* Preview Assets.xcassets */; };
+		05BC02631713B9EA213E82CD /* SettingsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1292E5E81B9EC166C8B5E45B /* SettingsUITests.swift */; };
 		06E90E0CB164BB00EB07CC8E /* GameSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D91965C586CEAF9D0CB568E /* GameSetupView.swift */; };
 		0DD6F27121986F9E7B9DF986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F5B0A713B5644EC4BE03CE5 /* Assets.xcassets */; };
 		15D6D4DB2F2FC8D8484242C8 /* TicketToRideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CD6A03BBE3136A297429AE /* TicketToRideUITests.swift */; };
@@ -44,6 +45,7 @@
 		B33762CC3656A7FF415E9349 /* ResultsFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762038FE1753AA4FD3D17696 /* ResultsFlowUITests.swift */; };
 		C01539F7DCDA5DF17A2C86FE /* RankingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07359F7DB8D6F8A97B08B78A /* RankingServiceTests.swift */; };
 		C0FBB0A3E0A86D0081C60B9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8D033452FCFDCCED806A57 /* ContentView.swift */; };
+		C8F7E927BA980EFC8B686945 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6631FAAED7E92618551F764 /* SettingsView.swift */; };
 		CA245A9E29CC1115A2AC89A9 /* Carcassonne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD3013E7E54301C8565C5BD /* Carcassonne.swift */; };
 		D292B0C108E0430B06159920 /* HistoryStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1AAC073BA92ADE3E70813 /* HistoryStats.swift */; };
 		D61F945ECF4A9CCF7A074407 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C913CC29EBC94CE97BE6E86 /* HistoryView.swift */; };
@@ -85,6 +87,7 @@
 		07359F7DB8D6F8A97B08B78A /* RankingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingServiceTests.swift; sourceTree = "<group>"; };
 		0D83095F229D4EE6364B7E48 /* GameScoringTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GameScoringTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F2DE5B4807687B6C56A1078 /* UITestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestSupport.swift; sourceTree = "<group>"; };
+		1292E5E81B9EC166C8B5E45B /* SettingsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsUITests.swift; sourceTree = "<group>"; };
 		146285DCA89B87F55B67EAD4 /* GameRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRegistry.swift; sourceTree = "<group>"; };
 		149195FE27028FEC88DB8990 /* PlayersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersView.swift; sourceTree = "<group>"; };
 		1FD1AAC073BA92ADE3E70813 /* HistoryStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStats.swift; sourceTree = "<group>"; };
@@ -132,6 +135,7 @@
 		F26996F85A405E10461FA442 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		F2BFB960C181BC8236EA35D0 /* GameScoringApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScoringApp.swift; sourceTree = "<group>"; };
 		F3364F1AAE9FCEE4B37DF065 /* ScoringGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringGameTests.swift; sourceTree = "<group>"; };
+		F6631FAAED7E92618551F764 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F91E122160F677C6AE12AF14 /* PlayerScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScore.swift; sourceTree = "<group>"; };
 		F9B413E0FD9D663817D0BC3C /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		FA5E4EE00609A6A08678AAFA /* AvatarColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarColorPicker.swift; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 				99330B4558C647A711732E3C /* ResumeFlowUITests.swift */,
 				02E6048DA56080384BA439A0 /* ScoringFlowUITests.swift */,
 				A683805629B1050E4BDBC4B9 /* ScreenshotUITests.swift */,
+				1292E5E81B9EC166C8B5E45B /* SettingsUITests.swift */,
 				95950B791D1E145EB68AF9B2 /* SmokeUITests.swift */,
 				95CD6A03BBE3136A297429AE /* TicketToRideUITests.swift */,
 				0F2DE5B4807687B6C56A1078 /* UITestSupport.swift */,
@@ -220,6 +225,7 @@
 				5B86E45488C7978D9B83B007 /* ResultsView.swift */,
 				702045AE20364D499C46F5B3 /* ScoreKeypad.swift */,
 				375566FCDFEA8178326567A5 /* ScoringView.swift */,
+				F6631FAAED7E92618551F764 /* SettingsView.swift */,
 				4BC368A2E537F358A728C03B /* ShelfView.swift */,
 				8A8B3D7B568C270634498AAA /* StandingsView.swift */,
 				B4D7DB48C14A79EF6B63FC95 /* StepperField.swift */,
@@ -418,6 +424,7 @@
 				DA65E3C59D60993F6B04B4D9 /* ScoringGame.swift in Sources */,
 				7118BF3C9235DC6EE39845B8 /* ScoringView.swift in Sources */,
 				43560CE948C02ED477F45B66 /* SessionService.swift in Sources */,
+				C8F7E927BA980EFC8B686945 /* SettingsView.swift in Sources */,
 				7A47309872B68D1C0CA47414 /* SevenWonders.swift in Sources */,
 				E5B3AA0BEE351B5B8417752C /* ShelfView.swift in Sources */,
 				82D2CFF7968CE72F8EE08A8C /* StandingsView.swift in Sources */,
@@ -438,6 +445,7 @@
 				3287BD367E7D4991FCB93084 /* ResumeFlowUITests.swift in Sources */,
 				5BCA993F03F45E9911F5ED51 /* ScoringFlowUITests.swift in Sources */,
 				EE90BEC23BDA6EC0BAE8A3C9 /* ScreenshotUITests.swift in Sources */,
+				05BC02631713B9EA213E82CD /* SettingsUITests.swift in Sources */,
 				680B19AB0D884E5E1276C131 /* SmokeUITests.swift in Sources */,
 				15D6D4DB2F2FC8D8484242C8 /* TicketToRideUITests.swift in Sources */,
 				944F2CB9D63B07486FF39EB2 /* UITestSupport.swift in Sources */,
@@ -633,7 +641,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"GameScoring/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -695,7 +703,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"GameScoring/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;

@@ -59,3 +59,4 @@ open GameScoring.xcodeproj
 - [x] Fourth game: Ticket to Ride (negative-ticket penalties)
 - [x] Player detail + stats (games, wins, win rate, per-game breakdown, recent
   games) — tap a player's avatar
+- [x] About sheet (gear in Shelf nav): app info, version, game count, source link
