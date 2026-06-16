@@ -35,42 +35,44 @@ struct GameSetupView: View {
   private var canAddMore: Bool { selectedIDs.count < game.maxPlayers }
   private var canStart: Bool { selectedIDs.count >= game.minPlayers }
 
+  // No internal NavigationStack: callers embed this in their own stack so the
+  // view works both as the cover root and when pushed (Results → Play again).
   var body: some View {
-    NavigationStack {
-      ScrollView {
-        VStack(alignment: .leading, spacing: 24) {
-          selectedCluster
-          rosterSection
-        }
-        .padding(20)
+    ScrollView {
+      VStack(alignment: .leading, spacing: 24) {
+        selectedCluster
+        rosterSection
       }
-      .background(Theme.background)
-      .navigationTitle(game.name)
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbar {
-        ToolbarItem(placement: .cancellationAction) {
-          Button("Cancel") { dismiss() }
-        }
-        ToolbarItem(placement: .topBarTrailing) {
-          Text("\(selectedIDs.count) / \(game.maxPlayers)")
-            .font(.subheadline.monospacedDigit())
-            .foregroundStyle(Theme.textSecondary)
-        }
+      .padding(20)
+    }
+    .background(Theme.background)
+    .navigationTitle(game.name)
+    .navigationBarTitleDisplayMode(.inline)
+    .toolbar {
+      ToolbarItem(placement: .cancellationAction) {
+        Button("Cancel") { dismiss() }
       }
-      .safeAreaInset(edge: .bottom) { startBar }
-      .sheet(isPresented: $showingAdd) {
-        AddPlayerSheet { newPlayer in
-          if canAddMore { selectedIDs.append(newPlayer.id) }
-        }
+      ToolbarItem(placement: .topBarTrailing) {
+        Text("\(selectedIDs.count) / \(game.maxPlayers)")
+          .font(.subheadline.monospacedDigit())
+          .foregroundStyle(Theme.textSecondary)
       }
-      .navigationDestination(item: $startedSession) { session in
-        ScoringView(session: session)
+    }
+    .safeAreaInset(edge: .bottom) { startBar }
+    .sheet(isPresented: $showingAdd) {
+      AddPlayerSheet { newPlayer in
+        if canAddMore { selectedIDs.append(newPlayer.id) }
       }
-      .onAppear {
-        if selectedIDs.isEmpty {
-          // Pre-select the requested players that are still in the roster.
-          selectedIDs = initialPlayerIDs.filter { id in roster.contains { $0.id == id } }
-        }
+    }
+    .navigationDestination(item: $startedSession) { session in
+      ScoringView(session: session)
+    }
+    .onAppear {
+      // Pre-select requested players (e.g. Play again). Set directly rather than
+      // filtering the @Query roster, which may not have loaded yet on first
+      // appear; `selectedPlayers` already ignores any id no longer in the roster.
+      if selectedIDs.isEmpty, !initialPlayerIDs.isEmpty {
+        selectedIDs = initialPlayerIDs
       }
     }
   }
@@ -184,6 +186,7 @@ struct GameSetupView: View {
         }
         .buttonStyle(.plain)
         .disabled(!canAddMore)
+        .accessibilityIdentifier("roster.\(player.name)")
       }
     }
   }
@@ -202,6 +205,7 @@ struct GameSetupView: View {
     .disabled(!canStart)
     .padding(.horizontal, 20)
     .padding(.bottom, 8)
+    .accessibilityIdentifier("setup.start")
   }
 
   // MARK: - Actions

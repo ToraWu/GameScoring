@@ -39,6 +39,16 @@ open GameScoring.xcodeproj
 - [x] M5 — Results screen (ranked standings, winner crown, tie badge, breakdown)
 - [x] M6 — History + Home tabs (filter, session detail, resume, featured game)
 - [x] M7 — Polish (edge cases, keyboard dismiss, empty-state copy, visual QA)
-- [x] Testing complete (53 unit tests)
+- [x] Testing complete (unit + UI tests)
 
 **v1 feature-complete.**
+
+### v1.01 (scoring/results refinements)
+- [x] Score Entry: pinned collapsing header, stepper inputs, per-category
+  icons, negative scores, solid-vs-placeholder zero, scroll-to-top on switch,
+  last-player Finish, full-screen background
+- [x] Results: category icons in breakdown, Edit (revise & re-rank), Play again
+- [x] Per-category icon/colour system; `PlayerScore.rawInputs` for revision
+- [x] In-app version (release + dev build) on the Home footer
+- [x] XCUITest target driving the scoring/results flows
+- [x] App locked to light appearance (Warm Table is light-only)

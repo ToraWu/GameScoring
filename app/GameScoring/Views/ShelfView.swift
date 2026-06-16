@@ -17,6 +17,7 @@ struct ShelfView: View {
               GameCard(game: game)
             }
             .buttonStyle(.plain)
+            .accessibilityIdentifier("game.\(game.id)")
           }
         }
         .padding(.horizontal, 16)
@@ -26,8 +27,10 @@ struct ShelfView: View {
       .navigationTitle("Shelf")
     }
     .fullScreenCover(item: $setupGame) { wrapper in
-      GameSetupView(game: wrapper.game)
-        .environment(\.dismissFlow, DismissFlowAction { setupGame = nil })
+      NavigationStack {
+        GameSetupView(game: wrapper.game)
+      }
+      .environment(\.dismissFlow, DismissFlowAction { setupGame = nil })
     }
   }
 }

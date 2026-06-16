@@ -12,4 +12,14 @@ final class SmokeUITests: XCTestCase {
     XCTAssertTrue(app.tabBars.buttons["Home"].exists)
     XCTAssertTrue(app.tabBars.buttons["Shelf"].exists)
   }
+
+  func testHomeShowsVersionFooter() {
+    let app = XCUIApplication()
+    app.launchFresh()
+
+    let footer = app.staticTexts["home.version"]
+    XCTAssertTrue(footer.waitForExistence(timeout: 10))
+    XCTAssertTrue(footer.label.contains("BoardScore"), "footer was: \(footer.label)")
+    XCTAssertTrue(footer.label.contains("build"), "footer was: \(footer.label)")
+  }
 }

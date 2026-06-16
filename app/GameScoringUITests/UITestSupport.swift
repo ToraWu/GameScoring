@@ -16,7 +16,7 @@ extension XCTestCase {
   @discardableResult
   func waitFor(
     _ element: XCUIElement,
-    timeout: TimeInterval = 8,
+    _ timeout: TimeInterval = 8,
     _ message: String = "element did not appear"
   ) -> Bool {
     let ok = element.waitForExistence(timeout: timeout)

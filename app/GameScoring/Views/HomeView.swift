@@ -39,6 +39,13 @@ struct HomeView: View {
           if !otherGames.isEmpty {
             otherGamesSection
           }
+
+          Text(AppVersion.footer)
+            .font(.caption2)
+            .foregroundStyle(Theme.textSecondary.opacity(0.7))
+            .frame(maxWidth: .infinity)
+            .padding(.top, 8)
+            .accessibilityIdentifier("home.version")
         }
         .padding(20)
       }
@@ -48,8 +55,10 @@ struct HomeView: View {
     .fullScreenCover(item: $flow) { flow in
       switch flow {
       case .setup(let ref):
-        GameSetupView(game: ref.game)
-          .environment(\.dismissFlow, DismissFlowAction { self.flow = nil })
+        NavigationStack {
+          GameSetupView(game: ref.game)
+        }
+        .environment(\.dismissFlow, DismissFlowAction { self.flow = nil })
       case .resume(let session):
         NavigationStack { ScoringView(session: session) }
           .environment(\.dismissFlow, DismissFlowAction { self.flow = nil })

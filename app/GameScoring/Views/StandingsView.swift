@@ -78,13 +78,13 @@ private struct ResultRow: View {
   let game: (any ScoringGame)?
   let isWinner: Bool
 
-  private var breakdown: [(name: String, value: Double)] {
+  private var breakdown: [(name: String, value: Double, icon: String, colorHex: String)] {
     guard let game else { return [] }
     let scores = score.categoryScores
     return game.categories
       .filter { scores[$0.id] != nil }
       .sorted { $0.displayOrder < $1.displayOrder }
-      .map { ($0.name, scores[$0.id] ?? 0) }
+      .map { ($0.name, scores[$0.id] ?? 0, $0.icon, $0.colorHex) }
   }
 
   var body: some View {
@@ -117,15 +117,18 @@ private struct ResultRow: View {
         ScrollView(.horizontal, showsIndicators: false) {
           HStack(spacing: 8) {
             ForEach(breakdown, id: \.name) { item in
-              VStack(spacing: 1) {
+              VStack(spacing: 2) {
+                Image(systemName: item.icon)
+                  .font(.caption)
+                  .foregroundStyle(Color(hexString: item.colorHex))
                 Text("\(Int(item.value.rounded()))")
                   .font(.subheadline.weight(.semibold).monospacedDigit())
-                  .foregroundStyle(Theme.textPrimary)
+                  .foregroundStyle(item.value < 0 ? Color(hex: 0xdc2626) : Theme.textPrimary)
                 Text(item.name)
                   .font(.caption2)
                   .foregroundStyle(Theme.textSecondary)
               }
-              .frame(minWidth: 52)
+              .frame(minWidth: 54)
               .padding(.vertical, 6)
               .padding(.horizontal, 8)
               .background(Theme.background, in: .rect(cornerRadius: 10))

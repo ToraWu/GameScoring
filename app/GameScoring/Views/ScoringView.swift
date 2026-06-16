@@ -1,9 +1,9 @@
 import SwiftData
 import SwiftUI
 
-/// Score-entry screen for an in-progress session. Shows one player at a time;
-/// direct categories are editable, computed categories (e.g. 7 Wonders science)
-/// update live. Back discards the session; Finish ranks and completes it.
+/// Score-entry screen for a session. One player at a time; the player strip and
+/// running total are pinned and collapse as the form scrolls. Direct categories
+/// use steppers (some allow negatives); computed categories update live.
 struct ScoringView: View {
   let session: GameSession
 
@@ -12,14 +12,16 @@ struct ScoringView: View {
 
   /// Raw inputs keyed by PlayerScore.id → category id → value.
   @State private var inputs: [UUID: [String: Double]] = [:]
+  /// "scoreID|categoryID" keys the user has edited (controls placeholder vs solid 0).
+  @State private var touched: Set<String> = []
   @State private var currentIndex = 0
   @State private var showDiscardAlert = false
   @State private var finishedSession: GameSession?
+  @State private var collapse: CGFloat = 0
   @FocusState private var keyboardActive: Bool
 
   private var game: (any ScoringGame)? { GameRegistry.game(for: session.gameID) }
 
-  /// Stable player order (by roster creation time).
   private var orderedScores: [PlayerScore] {
     session.playerScores.sorted {
       ($0.player?.createdAt ?? .distantPast) < ($1.player?.createdAt ?? .distantPast)
@@ -29,6 +31,8 @@ struct ScoringView: View {
   private var currentScore: PlayerScore? {
     orderedScores.indices.contains(currentIndex) ? orderedScores[currentIndex] : nil
   }
+
+  private var isLastPlayer: Bool { currentIndex >= orderedScores.count - 1 }
 
   var body: some View {
     Group {
@@ -42,22 +46,20 @@ struct ScoringView: View {
         )
       }
     }
-    .background(Theme.background)
+    .background(Theme.background.ignoresSafeArea())
     .navigationTitle(session.gameName)
     .navigationBarTitleDisplayMode(.inline)
     .navigationBarBackButtonHidden(true)
     .toolbar {
       ToolbarItem(placement: .topBarLeading) {
         Button("Back") { showDiscardAlert = true }
+          .accessibilityIdentifier("scoring.back")
       }
       ToolbarItem(placement: .topBarTrailing) {
         Button("Finish") { finish() }
           .fontWeight(.semibold)
           .disabled(game == nil)
-      }
-      ToolbarItemGroup(placement: .keyboard) {
-        Spacer()
-        Button("Done") { keyboardActive = false }
+          .accessibilityIdentifier("scoring.finishNav")
       }
     }
     .alert("Discard scores?", isPresented: $showDiscardAlert) {
@@ -70,7 +72,6 @@ struct ScoringView: View {
       ResultsView(session: session)
     }
     .onAppear(perform: loadInputs)
-    .onChange(of: inputs) { _, _ in persistInputs() }
   }
 
   // MARK: - Content
@@ -87,69 +88,100 @@ struct ScoringView: View {
       .filter { inputOnly.contains($0.id) }
       .sorted { $0.displayOrder < $1.displayOrder }
 
-    ScrollView {
-      VStack(spacing: 20) {
-        playerStrip
-        totalCard(total: computed.values.reduce(0, +), name: score.player?.name ?? "Player")
-
-        categorySection(rows: scoringCats, score: score, computed: computed)
-
-        if !symbolCats.isEmpty {
-          categorySection(title: "Symbols", rows: symbolCats, score: score, computed: computed)
-        }
-
-        navButtons
-      }
-      .padding(20)
+    VStack(spacing: 0) {
+      header(score: score, total: computed.values.reduce(0, +))
+      form(score: score, scoringCats: scoringCats, symbolCats: symbolCats, computed: computed)
     }
   }
 
-  private var playerStrip: some View {
+  // MARK: - Pinned, collapsing header
+
+  private func header(score: PlayerScore, total: Double) -> some View {
+    let avatar = 52 - 18 * collapse
+    let totalFont = 40 - 16 * collapse
+
+    return VStack(spacing: 6) {
+      playerStrip(currentAvatar: avatar)
+      Text(score.player?.name ?? "Player")
+        .font(.subheadline)
+        .foregroundStyle(Theme.textSecondary)
+        .opacity(1 - collapse)
+        .frame(height: (1 - collapse) * 20)
+      Text("\(formatted(total)) VP")
+        .font(.system(size: totalFont, weight: .bold, design: .rounded))
+        .foregroundStyle(Theme.accentPrimary)
+        .contentTransition(.numericText())
+        .animation(.snappy, value: total)
+        .accessibilityIdentifier("scoring.total")
+    }
+    .padding(.top, 12)
+    .padding(.bottom, 14 - 6 * collapse)
+    .frame(maxWidth: .infinity)
+    .background(Theme.background)
+    .contentShape(.rect)
+    .onTapGesture { keyboardActive = false }  // tap header to dismiss keypad
+  }
+
+  private func playerStrip(currentAvatar: CGFloat) -> some View {
     ScrollView(.horizontal, showsIndicators: false) {
       HStack(spacing: 12) {
         ForEach(Array(orderedScores.enumerated()), id: \.element.id) { index, score in
           let isCurrent = index == currentIndex
-          VStack(spacing: 4) {
-            PlayerAvatar(
-              name: score.player?.name ?? "?",
-              colorHex: score.player?.avatarColor ?? "#888888",
-              size: isCurrent ? 52 : 40
-            )
-            Text(score.player?.name ?? "?")
-              .font(.caption2)
-              .lineLimit(1)
-              .foregroundStyle(isCurrent ? Theme.textPrimary : Theme.textSecondary)
+          PlayerAvatar(
+            name: score.player?.name ?? "?",
+            colorHex: score.player?.avatarColor ?? "#888888",
+            size: isCurrent ? currentAvatar : 34
+          )
+          .opacity(isCurrent ? 1 : 0.55)
+          .overlay {
+            if isCurrent {
+              Circle().strokeBorder(Theme.accentPrimary, lineWidth: 2)
+            }
           }
-          .frame(width: 64)
-          .opacity(isCurrent ? 1 : 0.6)
-          .onTapGesture { withAnimation(.snappy) { currentIndex = index } }
+          .onTapGesture { switchTo(index) }
+          .accessibilityIdentifier("scoring.player.\(index)")
         }
       }
-      .padding(.horizontal, 4)
+      .padding(.horizontal, 20)
+      .frame(minWidth: 0)
     }
   }
 
-  private func totalCard(total: Double, name: String) -> some View {
-    VStack(spacing: 2) {
-      Text(name)
-        .font(.subheadline)
-        .foregroundStyle(Theme.textSecondary)
-      Text("\(formatted(total)) VP")
-        .font(.system(size: 40, weight: .bold, design: .rounded))
-        .foregroundStyle(Theme.accentPrimary)
-        .contentTransition(.numericText())
-        .animation(.snappy, value: total)
-    }
-    .frame(maxWidth: .infinity)
-    .padding(.vertical, 16)
-    .background(.regularMaterial, in: .rect(cornerRadius: 20))
-  }
+  // MARK: - Scrolling form
 
-  private func categorySection(
-    title: String? = nil,
-    rows: [ScoreCategory],
+  private func form(
     score: PlayerScore,
+    scoringCats: [ScoreCategory],
+    symbolCats: [ScoreCategory],
     computed: [String: Double]
+  ) -> some View {
+    ScrollViewReader { proxy in
+      ScrollView {
+        VStack(spacing: 16) {
+          Color.clear.frame(height: 0).id("top")
+          categoryCard(scoringCats, score: score, computed: computed)
+          if !symbolCats.isEmpty {
+            categoryCard(symbolCats, score: score, computed: computed, title: "Symbols")
+          }
+          navButtons
+        }
+        .padding(20)
+      }
+      .scrollDismissesKeyboard(.interactively)
+      .onScrollGeometryChange(for: CGFloat.self) { $0.contentOffset.y } action: { _, y in
+        collapse = min(1, max(0, y / 56))
+      }
+      .onChange(of: currentIndex) { _, _ in
+        withAnimation(.snappy) { proxy.scrollTo("top", anchor: .top) }
+      }
+    }
+  }
+
+  private func categoryCard(
+    _ rows: [ScoreCategory],
+    score: PlayerScore,
+    computed: [String: Double],
+    title: String? = nil
   ) -> some View {
     VStack(alignment: .leading, spacing: 0) {
       if let title {
@@ -177,18 +209,24 @@ struct ScoringView: View {
     score: PlayerScore,
     computed: [String: Double]
   ) -> some View {
-    HStack {
+    HStack(spacing: 10) {
+      Image(systemName: category.icon)
+        .font(.body)
+        .foregroundStyle(Color(hexString: category.colorHex))
+        .frame(width: 26)
       Text(category.name)
         .foregroundStyle(Theme.textPrimary)
       Spacer()
       switch category.inputType {
       case .integer:
-        TextField("0", text: intBinding(score.id, category.id))
-          .keyboardType(.numberPad)
-          .multilineTextAlignment(.trailing)
-          .frame(width: 80)
-          .textFieldStyle(.roundedBorder)
-          .focused($keyboardActive)
+        StepperField(
+          categoryID: category.id,
+          value: inputs[score.id]?[category.id] ?? 0,
+          allowsNegative: category.allowsNegative,
+          touched: touched.contains(touchKey(score.id, category.id)),
+          onSet: { newValue, mark in setInput(score.id, category.id, newValue, mark) },
+          keyboardActive: $keyboardActive
+        )
       case .computed:
         Text("\(formatted(computed[category.id] ?? 0)) VP")
           .font(.body.weight(.semibold))
@@ -204,47 +242,50 @@ struct ScoringView: View {
   private var navButtons: some View {
     HStack(spacing: 12) {
       Button {
-        withAnimation(.snappy) { currentIndex -= 1 }
+        switchTo(currentIndex - 1)
       } label: {
         Label("Previous", systemImage: "chevron.left")
-          .frame(maxWidth: .infinity)
-          .padding(.vertical, 12)
+          .frame(maxWidth: .infinity).padding(.vertical, 12)
       }
       .buttonStyle(.bordered)
       .disabled(currentIndex == 0)
+      .accessibilityIdentifier("scoring.previous")
 
-      Button {
-        withAnimation(.snappy) { currentIndex += 1 }
-      } label: {
-        Label("Next", systemImage: "chevron.right")
-          .frame(maxWidth: .infinity)
-          .padding(.vertical, 12)
+      if isLastPlayer {
+        Button { finish() } label: {
+          Label("Finish", systemImage: "checkmark")
+            .frame(maxWidth: .infinity).padding(.vertical, 12)
+        }
+        .buttonStyle(.borderedProminent)
+        .accessibilityIdentifier("scoring.finish")
+      } else {
+        Button { switchTo(currentIndex + 1) } label: {
+          Label("Next", systemImage: "chevron.right")
+            .frame(maxWidth: .infinity).padding(.vertical, 12)
+        }
+        .buttonStyle(.bordered)
+        .accessibilityIdentifier("scoring.next")
       }
-      .buttonStyle(.bordered)
-      .disabled(currentIndex >= orderedScores.count - 1)
     }
     .tint(Theme.accentPrimary)
   }
 
-  // MARK: - Bindings & helpers
+  // MARK: - Input plumbing
 
-  private func intBinding(_ scoreID: UUID, _ categoryID: String) -> Binding<String> {
-    Binding(
-      get: {
-        let value = inputs[scoreID]?[categoryID] ?? 0
-        return value == 0 ? "" : String(Int(value))
-      },
-      set: { text in
-        let digits = text.filter(\.isNumber)
-        inputs[scoreID, default: [:]][categoryID] = Double(digits) ?? 0
-      }
-    )
+  private func touchKey(_ scoreID: UUID, _ categoryID: String) -> String {
+    "\(scoreID.uuidString)|\(categoryID)"
+  }
+
+  private func setInput(_ scoreID: UUID, _ categoryID: String, _ value: Double, _ mark: Bool) {
+    inputs[scoreID, default: [:]][categoryID] = value
+    if mark { touched.insert(touchKey(scoreID, categoryID)) }
+    persistInputs()
   }
 
   private func checkboxBinding(_ scoreID: UUID, _ categoryID: String) -> Binding<Bool> {
     Binding(
       get: { (inputs[scoreID]?[categoryID] ?? 0) > 0 },
-      set: { inputs[scoreID, default: [:]][categoryID] = $0 ? 1 : 0 }
+      set: { setInput(scoreID, categoryID, $0 ? 1 : 0, true) }
     )
   }
 
@@ -254,8 +295,15 @@ struct ScoringView: View {
 
   // MARK: - Actions
 
+  private func switchTo(_ index: Int) {
+    guard orderedScores.indices.contains(index) else { return }
+    keyboardActive = false
+    withAnimation(.snappy) { currentIndex = index }
+  }
+
   private func finish() {
     guard let game else { return }
+    persistInputs()
     SessionService.finish(session, game: game, inputs: inputs)
     finishedSession = session
   }
@@ -265,22 +313,24 @@ struct ScoringView: View {
     dismiss()
   }
 
-  /// Restores raw inputs from the session so an in-progress game can be resumed.
-  /// While a session is unfinished, `categoryScores` holds raw inputs; on Finish
-  /// they're replaced by computed VP.
+  /// Restores raw inputs (resume or revise a finished game). Loaded values are
+  /// marked touched so they render solid rather than as placeholders.
   private func loadInputs() {
     guard inputs.isEmpty else { return }
-    for score in orderedScores where !score.categoryScores.isEmpty {
-      inputs[score.id] = score.categoryScores
+    for score in orderedScores {
+      let raw = score.rawInputs
+      guard !raw.isEmpty else { continue }
+      inputs[score.id] = raw
+      for key in raw.keys { touched.insert(touchKey(score.id, key)) }
     }
   }
 
-  /// Persists current raw inputs so progress survives backgrounding/relaunch.
-  /// Only writes scores that actually changed to avoid spurious `updatedAt` bumps.
+  /// Persists raw inputs so progress survives backgrounding/relaunch; only
+  /// writes players whose inputs changed.
   private func persistInputs() {
     for score in orderedScores {
-      guard let raw = inputs[score.id], raw != score.categoryScores else { continue }
-      score.categoryScores = raw
+      guard let raw = inputs[score.id], raw != score.rawInputs else { continue }
+      score.rawInputs = raw
     }
   }
 }

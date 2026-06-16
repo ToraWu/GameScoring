@@ -24,6 +24,7 @@
 		5513EBCAE7161B5BCA05E2BF /* PlayerAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CEF9649D577CD34F861987 /* PlayerAvatar.swift */; };
 		574D1641C306CB5A80855337 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758DA2E282F8CF36AB39D3B4 /* Player.swift */; };
 		5AD4A2888BD00056C4FA8E3F /* GameScoringApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BFB960C181BC8236EA35D0 /* GameScoringApp.swift */; };
+		5BCA993F03F45E9911F5ED51 /* ScoringFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E6048DA56080384BA439A0 /* ScoringFlowUITests.swift */; };
 		641998D4C05129D91A002797 /* GameRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C8E08BF9B831D565F1B7B6 /* GameRef.swift */; };
 		680B19AB0D884E5E1276C131 /* SmokeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95950B791D1E145EB68AF9B2 /* SmokeUITests.swift */; };
 		7118BF3C9235DC6EE39845B8 /* ScoringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375566FCDFEA8178326567A5 /* ScoringView.swift */; };
@@ -36,6 +37,7 @@
 		95E495638C6E929CC168B981 /* GameSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B587D7FD8F8542D66DA7D2F9 /* GameSession.swift */; };
 		A0648CBD51BAB1BC7F893493 /* AddPlayerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CE7E7FE12CF6A865256E84 /* AddPlayerSheet.swift */; };
 		ACF83005B92CCD98ADABC9DE /* RankingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD352842982AC481789478C9 /* RankingService.swift */; };
+		B33762CC3656A7FF415E9349 /* ResultsFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762038FE1753AA4FD3D17696 /* ResultsFlowUITests.swift */; };
 		C01539F7DCDA5DF17A2C86FE /* RankingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07359F7DB8D6F8A97B08B78A /* RankingServiceTests.swift */; };
 		C0FBB0A3E0A86D0081C60B9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8D033452FCFDCCED806A57 /* ContentView.swift */; };
 		CA245A9E29CC1115A2AC89A9 /* Carcassonne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD3013E7E54301C8565C5BD /* Carcassonne.swift */; };
@@ -43,8 +45,11 @@
 		D61F945ECF4A9CCF7A074407 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C913CC29EBC94CE97BE6E86 /* HistoryView.swift */; };
 		D82E48D2F3F3A293D660EAAB /* PlayerScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91E122160F677C6AE12AF14 /* PlayerScore.swift */; };
 		DA65E3C59D60993F6B04B4D9 /* ScoringGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2129A09D2F6B139DD87842B3 /* ScoringGame.swift */; };
+		E4EA4ABD663ACB7E8F65B005 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893088E2EF7ED472B58F303B /* AppVersion.swift */; };
 		E5B3AA0BEE351B5B8417752C /* ShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC368A2E537F358A728C03B /* ShelfView.swift */; };
 		EAACE68B758DE60D6E5DC51B /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B86E45488C7978D9B83B007 /* ResultsView.swift */; };
+		EE90BEC23BDA6EC0BAE8A3C9 /* ScreenshotUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A683805629B1050E4BDBC4B9 /* ScreenshotUITests.swift */; };
+		F2D8C3ACB546E78E36511DD5 /* StepperField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D7DB48C14A79EF6B63FC95 /* StepperField.swift */; };
 		F2FB7AEEB8E7B2C0C719EB7E /* HistoryStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F94A7378E2D17CEA003D762 /* HistoryStatsTests.swift */; };
 		FA8201545B75F95296638E71 /* SessionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E3A47096F1EF36B444043E /* SessionServiceTests.swift */; };
 		FBF5AE0215C2F6C60F5C06B3 /* GameRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146285DCA89B87F55B67EAD4 /* GameRegistry.swift */; };
@@ -68,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02E6048DA56080384BA439A0 /* ScoringFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringFlowUITests.swift; sourceTree = "<group>"; };
 		07359F7DB8D6F8A97B08B78A /* RankingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingServiceTests.swift; sourceTree = "<group>"; };
 		0D83095F229D4EE6364B7E48 /* GameScoringTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GameScoringTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F2DE5B4807687B6C56A1078 /* UITestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestSupport.swift; sourceTree = "<group>"; };
@@ -90,13 +96,17 @@
 		66BB7449D3D2B2410193DF65 /* Wingspan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wingspan.swift; sourceTree = "<group>"; };
 		69A45E49B164400F677583F1 /* PreviewSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSupport.swift; sourceTree = "<group>"; };
 		758DA2E282F8CF36AB39D3B4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		762038FE1753AA4FD3D17696 /* ResultsFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsFlowUITests.swift; sourceTree = "<group>"; };
 		79238FE297A5D0DE7A4FE93D /* Timestamped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestamped.swift; sourceTree = "<group>"; };
 		79806D76474F83B08C0807C4 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		7FD3013E7E54301C8565C5BD /* Carcassonne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carcassonne.swift; sourceTree = "<group>"; };
+		893088E2EF7ED472B58F303B /* AppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
 		8A8B3D7B568C270634498AAA /* StandingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsView.swift; sourceTree = "<group>"; };
 		8F5B0A713B5644EC4BE03CE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95950B791D1E145EB68AF9B2 /* SmokeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeUITests.swift; sourceTree = "<group>"; };
 		99B8CE79C47816843505B7A9 /* DismissFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissFlow.swift; sourceTree = "<group>"; };
+		A683805629B1050E4BDBC4B9 /* ScreenshotUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotUITests.swift; sourceTree = "<group>"; };
+		B4D7DB48C14A79EF6B63FC95 /* StepperField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperField.swift; sourceTree = "<group>"; };
 		B587D7FD8F8542D66DA7D2F9 /* GameSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSession.swift; sourceTree = "<group>"; };
 		BA08B590A64904E2700DB0A1 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		C1C8E08BF9B831D565F1B7B6 /* GameRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRef.swift; sourceTree = "<group>"; };
@@ -146,6 +156,9 @@
 		4CB0B7208DD993B9B10C5EAB /* GameScoringUITests */ = {
 			isa = PBXGroup;
 			children = (
+				762038FE1753AA4FD3D17696 /* ResultsFlowUITests.swift */,
+				02E6048DA56080384BA439A0 /* ScoringFlowUITests.swift */,
+				A683805629B1050E4BDBC4B9 /* ScreenshotUITests.swift */,
 				95950B791D1E145EB68AF9B2 /* SmokeUITests.swift */,
 				0F2DE5B4807687B6C56A1078 /* UITestSupport.swift */,
 			);
@@ -187,6 +200,7 @@
 				375566FCDFEA8178326567A5 /* ScoringView.swift */,
 				4BC368A2E537F358A728C03B /* ShelfView.swift */,
 				8A8B3D7B568C270634498AAA /* StandingsView.swift */,
+				B4D7DB48C14A79EF6B63FC95 /* StepperField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -213,6 +227,7 @@
 		D17858741423B9ADFD8BC0B8 /* Design */ = {
 			isa = PBXGroup;
 			children = (
+				893088E2EF7ED472B58F303B /* AppVersion.swift */,
 				99B8CE79C47816843505B7A9 /* DismissFlow.swift */,
 				F9B413E0FD9D663817D0BC3C /* PlaceholderView.swift */,
 				69A45E49B164400F677583F1 /* PreviewSupport.swift */,
@@ -351,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0648CBD51BAB1BC7F893493 /* AddPlayerSheet.swift in Sources */,
+				E4EA4ABD663ACB7E8F65B005 /* AppVersion.swift in Sources */,
 				319F59281608A85C9E1A4C29 /* AvatarColorPicker.swift in Sources */,
 				CA245A9E29CC1115A2AC89A9 /* Carcassonne.swift in Sources */,
 				C0FBB0A3E0A86D0081C60B9F /* ContentView.swift in Sources */,
@@ -378,6 +394,7 @@
 				7A47309872B68D1C0CA47414 /* SevenWonders.swift in Sources */,
 				E5B3AA0BEE351B5B8417752C /* ShelfView.swift in Sources */,
 				82D2CFF7968CE72F8EE08A8C /* StandingsView.swift in Sources */,
+				F2D8C3ACB546E78E36511DD5 /* StepperField.swift in Sources */,
 				465AEB2B403B2AAAAF5652BC /* Theme.swift in Sources */,
 				769C166E45205B75E70E999D /* Timestamped.swift in Sources */,
 				8C2A4A53A032B3844A379BFF /* Wingspan.swift in Sources */,
@@ -388,6 +405,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B33762CC3656A7FF415E9349 /* ResultsFlowUITests.swift in Sources */,
+				5BCA993F03F45E9911F5ED51 /* ScoringFlowUITests.swift in Sources */,
+				EE90BEC23BDA6EC0BAE8A3C9 /* ScreenshotUITests.swift in Sources */,
 				680B19AB0D884E5E1276C131 /* SmokeUITests.swift in Sources */,
 				944F2CB9D63B07486FF39EB2 /* UITestSupport.swift in Sources */,
 			);
@@ -581,7 +601,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"GameScoring/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -594,7 +614,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.toratgs.boardscore;
 				PRODUCT_NAME = GameScoring;
 				SDKROOT = iphoneos;
@@ -643,7 +663,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"GameScoring/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -656,7 +676,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.toratgs.boardscore;
 				PRODUCT_NAME = GameScoring;
 				SDKROOT = iphoneos;
