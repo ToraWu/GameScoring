@@ -54,6 +54,18 @@ Unit tests are a standing requirement, not an afterthought:
 - UI views don't need unit tests, but the logic they call does — keep that logic
   in models/services so it's testable.
 
+### UI tests (XCUITest)
+
+- Flows live in `app/GameScoringUITests/` (target `GameScoringUITests`). Add a UI
+  test when a user-facing flow changes (scoring, results, resume, etc.).
+- The app honours launch arguments for deterministic state (see
+  `GameScoringApp.makeContainer`): `-uitestClean` (fresh temp store),
+  `-uitestSeed` (roster Ada/Boris/Chen/Dee), `-uitestSeedInProgress` (also an
+  in-progress 7 Wonders session). Use `XCUIApplication.launchFresh(...)`.
+- Drive elements by `accessibilityIdentifier` (e.g. `game.<id>`, `roster.<name>`,
+  `setup.start`, `<category>.plus/.minus/.value`, `scoring.total`,
+  `scoring.finish`, `results.edit/playAgain/done`, `home.resume`, `home.version`).
+
 ### SwiftData gotchas the tests guard against
 
 - **`didSet`/`willSet` do NOT fire on `@Model` stored properties.** Bump

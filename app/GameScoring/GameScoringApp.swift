@@ -37,15 +37,26 @@ struct GameScoringApp: App {
       .appendingPathComponent("uitest-\(UUID().uuidString).store")
     let container = try ModelContainer(for: schema, configurations: [ModelConfiguration(url: url)])
 
-    if args.contains("-uitestSeed") {
+    let needsRoster = args.contains("-uitestSeed") || args.contains("-uitestSeedInProgress")
+    if needsRoster {
       let context = container.mainContext
       let base = Date()
-      for (index, name) in ["Ada", "Boris", "Chen", "Dee"].enumerated() {
-        context.insert(Player(
+      let players = ["Ada", "Boris", "Chen", "Dee"].enumerated().map { index, name -> Player in
+        let player = Player(
           name: name,
           avatarColor: Theme.avatarPalette[index % Theme.avatarPalette.count],
           createdAt: base.addingTimeInterval(Double(index))
-        ))
+        )
+        context.insert(player)
+        return player
+      }
+      // Seed an in-progress 7 Wonders game so Home shows the resume banner.
+      if args.contains("-uitestSeedInProgress") {
+        SessionService.start(
+          game: SevenWonders.shared,
+          players: Array(players.prefix(3)),
+          in: context
+        )
       }
     }
     return container

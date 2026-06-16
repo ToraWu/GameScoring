@@ -3,10 +3,12 @@ import XCTest
 /// Shared helpers for driving BoardScore in UI tests.
 extension XCUIApplication {
   /// Launches with a fresh, empty on-disk store. Pass `seedPlayers` to also
-  /// insert a known roster (Ada, Boris, Chen, Dee) for scoring flows.
-  func launchFresh(seedPlayers: Bool = false) {
+  /// insert a known roster (Ada, Boris, Chen, Dee); pass `inProgressGame` to
+  /// additionally seed an in-progress 7 Wonders session (for the resume flow).
+  func launchFresh(seedPlayers: Bool = false, inProgressGame: Bool = false) {
     launchArguments += ["-uitestClean"]
     if seedPlayers { launchArguments += ["-uitestSeed"] }
+    if inProgressGame { launchArguments += ["-uitestSeedInProgress"] }
     launch()
   }
 }

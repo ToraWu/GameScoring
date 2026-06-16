@@ -96,6 +96,7 @@ struct HomeView: View {
       )
     }
     .buttonStyle(.plain)
+    .accessibilityIdentifier("home.resume")
   }
 
   // MARK: - Featured
