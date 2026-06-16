@@ -142,6 +142,7 @@
 		FD352842982AC481789478C9 /* RankingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingService.swift; sourceTree = "<group>"; };
 		FE0805A625B12D4D64E19944 /* PlayerDetailUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailUITests.swift; sourceTree = "<group>"; };
 		FE6BC067621EE975DC1DD0B4 /* GameScoringUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GameScoringUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		"TEMP_395829A0-F868-4513-A9DF-FF179CFE8BB7" /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -280,6 +281,14 @@
 				66BB7449D3D2B2410193DF65 /* Wingspan.swift */,
 			);
 			path = Games;
+			sourceTree = "<group>";
+		};
+		"TEMP_9A0172EA-7C2D-442A-979D-0C304CF32E83" /* app */ = {
+			isa = PBXGroup;
+			children = (
+				"TEMP_395829A0-F868-4513-A9DF-FF179CFE8BB7" /* Signing.xcconfig */,
+			);
+			path = app;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -637,13 +646,12 @@
 		};
 		5CBCDC1542ED630CEC076AC1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = "TEMP_395829A0-F868-4513-A9DF-FF179CFE8BB7" /* Signing.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"GameScoring/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = BoardScore;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -699,13 +707,12 @@
 		};
 		A6471D39E362B19A7B9945DF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = "TEMP_395829A0-F868-4513-A9DF-FF179CFE8BB7" /* Signing.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"GameScoring/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = BoardScore;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

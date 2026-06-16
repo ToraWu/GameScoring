@@ -23,6 +23,19 @@ xcodebuild test -project GameScoring.xcodeproj -scheme GameScoring \
 After adding a new `.swift` file (including new test files), run `xcodegen generate`
 before building or the file won't be in the target.
 
+## Code signing — do not clobber the team
+
+`DEVELOPMENT_TEAM` lives in `app/Signing.xcconfig` (referenced by `project.yml`
+via `configFiles`), **not** in `project.yml` settings. This is deliberate:
+
+- **Never put `DEVELOPMENT_TEAM` in `project.yml`** — a value there lands in the
+  generated `.pbxproj` and overrides the xcconfig, wiping the developer's local
+  Team ID on every `xcodegen generate`.
+- `Signing.xcconfig` is committed (so generation always finds it) but the
+  developer marks it skip-worktree (`git update-index --skip-worktree
+  app/Signing.xcconfig`) and sets their Team ID locally, so it's never pushed
+  and never overwritten. Don't `git add` a Team ID into it.
+
 ## Versioning — required
 
 The app shows **two versions** on the Home tab footer and in the About sheet

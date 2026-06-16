@@ -1,0 +1,16 @@
+// Local code-signing for on-device debugging.
+//
+// Set DEVELOPMENT_TEAM to your 10-character Apple Developer Team ID below.
+// This file is committed (so `xcodegen generate` always finds it), but git is
+// told to ignore your local edits, so:
+//   • your Team ID stays on your machine (never pushed to the public repo), and
+//   • it survives every `xcodegen generate` — project.yml references this file
+//     and never overwrites it.
+//
+// One-time setup so git ignores your edits to this file:
+//   git update-index --skip-worktree app/Signing.xcconfig
+//
+// Not needed for simulator builds — those pass CODE_SIGNING_ALLOWED=NO.
+
+DEVELOPMENT_TEAM =
+CODE_SIGN_STYLE = Automatic

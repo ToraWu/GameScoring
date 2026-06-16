@@ -14,16 +14,21 @@ targets:
       - path: GameScoring
         excludes:
           - "**/.DS_Store"
+    # Signing (DEVELOPMENT_TEAM) lives in the local Signing.xcconfig so it
+    # survives regeneration. NEVER add DEVELOPMENT_TEAM back to settings below —
+    # a value here lands in the .pbxproj and overrides the xcconfig, wiping the
+    # developer's local Team ID on every `xcodegen generate`.
+    configFiles:
+      Debug: Signing.xcconfig
+      Release: Signing.xcconfig
     settings:
       base:
         PRODUCT_NAME: GameScoring
         PRODUCT_BUNDLE_IDENTIFIER: com.toratgs.boardscore
         SWIFT_VERSION: "5.0"
         TARGETED_DEVICE_FAMILY: "1"
-        DEVELOPMENT_TEAM: ""
-        CODE_SIGN_STYLE: Automatic
         GENERATE_INFOPLIST_FILE: YES
-        CURRENT_PROJECT_VERSION: "10"
+        CURRENT_PROJECT_VERSION: "11"
         MARKETING_VERSION: "1.0.2"
         DEVELOPMENT_ASSET_PATHS: '"GameScoring/Preview Content"'
         INFOPLIST_KEY_CFBundleDisplayName: BoardScore
