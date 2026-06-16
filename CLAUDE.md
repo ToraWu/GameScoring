@@ -23,6 +23,21 @@ xcodebuild test -project GameScoring.xcodeproj -scheme GameScoring \
 After adding a new `.swift` file (including new test files), run `xcodegen generate`
 before building or the file won't be in the target.
 
+## Versioning — required
+
+The app shows **two versions** on the Home tab footer:
+
+- **Release version** — `MARKETING_VERSION` in `app/project.yml` →
+  `CFBundleShortVersionString` (e.g. `1.0.1`). Bump per release.
+- **Dev build** — `CURRENT_PROJECT_VERSION` in `app/project.yml` →
+  `CFBundleVersion` (an integer). **Bump this by 1 on every commit** that changes
+  app code, in the same commit. Read both at runtime from `Bundle.main`; never
+  hardcode the version in Swift.
+
+So the commit workflow is: make changes → increment `CURRENT_PROJECT_VERSION` in
+`app/project.yml` → `xcodegen generate` → build/test → commit. The footer reads
+`"BoardScore \(release) · build \(dev)"`.
+
 ## Unit testing — required
 
 Unit tests are a standing requirement, not an afterthought:

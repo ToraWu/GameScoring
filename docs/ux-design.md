@@ -1,7 +1,14 @@
 # BoardScore — UX Design Spec
-**Version:** 1.0  
-**Reflects:** PRD 2.1 wireframe decisions  
+**Version:** 1.01  
+**Reflects:** PRD 2.1 wireframe decisions + v1.01 scoring/results refinements  
 **Updated:** June 2026
+
+> **v1.01 changelog (this revision):** Score Entry pinned/collapsing header,
+> stepper inputs with negative support, per-category icon + colour system,
+> solid-vs-placeholder zero, scroll-to-top on player switch, last-player Finish.
+> Results: edit-scores (revise & re-finish), category icons in the breakdown,
+> "Play again" with the same settings. App version (release + dev build) shown
+> in-app. See **v1.01 Notes** at the end.
 
 ---
 
@@ -96,36 +103,50 @@
 ### Layout
 ```
 ┌─────────────────────────────┐
-│ ←      7 Wonders    Finish  │  ← nav; ← triggers discard alert
+│ Back    7 Wonders   Finish  │  ← nav; Back triggers discard alert
+├─────────────────────────────┤  ╮
+│  ○  ●  ○  ○                 │  │ PINNED header (does not scroll)
+│         Alice               │  │ collapses as the form scrolls:
+│         15 VP               │  │  · expanded: avatars + name + big total
+├─────────────────────────────┤  ╯  · collapsed: small avatars + inline total
+│ 🛡 Military           [−] 5 [+] │  ← scrolls; icon tinted by category colour
+│ 🪙 Treasury          [−] 0 [+] │     0 untouched = placeholder grey
+│ 🏛 Wonders           [−] 0 [+] │
+│ 🏢 Civilian          [−] 0 [+] │
+│ ⚛ Science            10 VP    │  ← computed: read-only, live
+│ 🛒 Commerce          [−] 0 [+] │
+│ 👥 Guilds            [−] 0 [+] │
+│ ─ Symbols ─                 │
+│ 🧭 Compass           [−] 1 [+] │
+│ 📖 Tablet            [−] 1 [+] │
+│ ⚙ Gear              [−] 1 [+] │
 ├─────────────────────────────┤
-│ ████████████████████░░░░░░  │  ← progress bar (75%)
-│ [‹] ○  ○  ●  ○  [›]        │  ← player strip
-│         Alice               │    active: 38pt / 100% opacity
-│         3 of 4              │    inactive: 28pt / 35% opacity
-├─────────────────────────────┤
-│ □ Military             VP   │
-│ [ −  |  0  |  + ]          │
-│ □ Treasury          coins   │
-│ [ −  |  0  |  + ]          │
-│ □ Scientific    3 symbols   │
-│   ⚙ [ −  0  + ]            │  ← sub-steppers for computed
-│   ⊕ [ −  0  + ]
-│   📖 [ −  0  + ]
-│ □ Civilian    (collapsed)   │
-├─────────────────────────────┤
-│ [ Next player →           ] │
+│ [ ‹ Previous ]  [ Next › ]  │  ← Next becomes "Finish ✓" on last player
 └─────────────────────────────┘
 ```
+
+### Header (pinned + collapsing)
+- The **player strip + current total are pinned** above the scrolling form — they never scroll off.
+- As the form scrolls **down**, the header **collapses** to reclaim space: the big total shrinks to an inline value and avatars shrink; scrolling back up re-expands it. Driven by scroll offset (`onScrollGeometryChange`).
+- Background fills the **entire screen** (ignores the bottom safe area) so no gap shows above the keyboard.
+
+### Inputs
+- Each direct category is a **stepper**: `[ − ]  value  [ + ]`. The value is also tappable for direct keypad entry; − / + adjust by 1 (long-press to repeat).
+- **Per-category icon**, tinted with the game's colour system (see *Category Visual System*), shown left of the label for fast identification.
+- **Negative-capable categories** (e.g. 7 Wonders Military) allow values below 0 via the stepper / a leading `−` on the keypad; **negative values render in a distinct colour** (red `#dc2626`).
+- **Computed categories** (e.g. Science) stay read-only and update live as their source inputs change.
+- **Zero display:** an *untouched* field shows a grey placeholder `0`; once the user edits it (steps or types), the value — including an explicit `0` — renders in the **solid** text colour.
+- **Keyboard dismissal:** scrolling dismisses the keypad (interactive); tapping outside a field also dismisses. **No separate "Done" toolbar button.**
 
 ### Interactions
 | Action | Result |
 |--------|--------|
-| Tap ← in nav | Discard alert: "Discard scores?" → Cancel / Discard |
-| Discard | Navigates back to Setup, clears all entered data |
-| Tap Finish | Navigates to Results; triggers score calculation |
-| Tap ‹ / › in strip | Switches active player (wraps around) |
-| Tap inactive avatar in strip | Switches to that player |
-| Tap "Next player →" | Advances to next player; on last player, behaves as Finish |
+| Tap Back in nav | Discard alert: "Discard scores?" → Cancel / Discard |
+| Discard | Deletes the in-progress session, returns to Setup |
+| Tap Finish (nav) | Ranks, completes the session, navigates to Results |
+| Tap an avatar in the strip | Switches active player; **form scrolls back to top** |
+| Tap ‹ Previous / Next › | Moves between players; **form scrolls to top** |
+| Next › on the **last** player | Renders as **Finish ✓** and finishes the game |
 
 ---
 
@@ -134,29 +155,28 @@
 ### Layout
 ```
 ┌─────────────────────────────┐
-│ ←       Results             │  ← nav (no right action)
+│ Edit    Results      Done   │  ← Edit (revise) · Done (exit flow)
 ├─────────────────────────────┤
-│          🏆                 │
-│        Alice won            │
-│                             │
-│         A    B    C    D    │  ← columns = players
-│ Total   68   54   61   57   │  ← totals row (highlighted)
-│ Military 12   8    6    9   │
-│ Treasury  6   9    7    6   │
-│ Wonders   7  10    8    6   │
-│ Civilian  …   …    …    …   │
-│ Sci.      …   …    …    …   │
-│ Guilds    …   …    …    …   │
+│          👑                 │
+│       Alice wins!           │  (or "It's a tie!" + names)
+│ ┌─────────────────────────┐ │
+│ │ ①  Ⓐ Alice    👑   25 VP│ │  ← ranked card per player
+│ │ 🛡15  🪙5  ⚛10  …       │ │  ← breakdown chips WITH category icons
+│ └─────────────────────────┘ │
+│ ┌─────────────────────────┐ │
+│ │ ②  Ⓑ Bob          18 VP │ │
+│ └─────────────────────────┘ │
 ├─────────────────────────────┤
-│ [ Play again ] [Save & exit]│
+│ [  ↻  Play again         ]  │  ← same game + same players
 └─────────────────────────────┘
 ```
 
 ### Behaviors
-- **Winner:** derived from `PlayerScore.rank == 1`; if multiple, shows "Tie! Alice & Bob"
-- **"Play again":** resets score data, returns to Setup with same players pre-selected
-- **"Save & exit":** saves session (`completedAt = Date()`), pops all covers to Home
-- **No "Done" button** — the two CTAs cover all exit paths
+- **Winner:** derived from `PlayerScore.rank == 1`; multiple winners → "It's a tie!" + names.
+- **Breakdown chips show the category icon** (same icon/colour system as Score Entry) next to each value.
+- **Edit (revise):** returns to the Score Entry screen for this session with the entered values restored; the user can change scores and tap Finish again to **re-rank and re-complete** the same session. Requires raw inputs to be retained on the session (not just computed VP).
+- **Play again:** opens **Game Setup pre-loaded with the same game and the same players selected** — one tap from a finished game to the next. Starting it creates a fresh session (the finished one stays in History).
+- **Done:** dismisses the whole flow back to the launching tab.
 
 ---
 
@@ -295,7 +315,56 @@ Same score grid as Results screen, read-only. Nav bar shows game title (left bac
 | "Play again" flow? | Creates new session, pre-selects same players, navigates to Setup |
 | Auto-save granularity? | Flush active player's scores to SwiftData on "next player" advance; in-progress player's state held in `@State` |
 | v1 games? | 7 Wonders and Wingspan, base game only, no expansions |
+| Score Entry header behaviour (v1.01)? | Player strip + total **pinned**, collapse on scroll to reclaim space |
+| Score input control (v1.01)? | `[ − ] value [ + ]` stepper; value tappable for keypad entry |
+| Negative scores (v1.01)? | Per-category `allowsNegative`; negatives rendered red `#dc2626` |
+| Category icons (v1.01)? | Each category carries an SF Symbol + colour (game colour system) |
+| Edit after finish (v1.01)? | Results → Edit returns to Score Entry; re-Finish re-ranks the same session |
+| Replay (v1.01)? | Results → Play again opens Setup with same game + same players |
+| App version display (v1.01)? | Release + dev build shown on Home footer; dev build bumps per commit |
+
+## Category Visual System (v1.01)
+
+Each `ScoreCategory` gains an **`icon`** (SF Symbol) and **`colorHex`** drawn from the
+game's own colour identity, used in Score Entry rows and Results breakdown chips.
+
+**7 Wonders** (matches the box's card colours):
+
+| Category | Icon | Colour |
+|----------|------|--------|
+| Military | `shield.fill` | red `#c0392b` |
+| Treasury | `centsign.circle.fill` | gold `#caa53d` |
+| Wonders | `building.columns.fill` | stone `#8a6d3b` |
+| Civilian | `building.2.fill` | blue `#2f6fb0` |
+| Science | `atom` | green `#3a8f5a` |
+| Commerce | `cart.fill` | amber `#d4a12a` |
+| Guilds | `person.3.fill` | purple `#7e5aa8` |
+| Compass / Tablet / Gear / Wild | `safari` / `book.closed.fill` / `gearshape.fill` / `star.fill` | green tints |
+
+**Wingspan:** Birds `bird.fill`, Bonus `rosette`, End-of-Round `flag.checkered`,
+Eggs `oval.fill`, Cached Food `leaf.fill`, Tucked `rectangle.stack.fill`.
+
+**Carcassonne:** Cities `building.2.fill`, Roads `road.lanes`, Cloisters
+`building.columns.fill`, Fields `leaf.fill`.
+
+Military is the canonical `allowsNegative` category (defeat tokens score −1).
+
+## v1.01 Notes — data & version
+
+**Model changes required:**
+- `ScoreCategory` adds `icon: String`, `colorHex: String`, `allowsNegative: Bool` (default false).
+- `PlayerScore` adds `rawInputsData` (JSON `[String: Double]`) so raw entries are
+  retained for **Edit/revise** — `categoryScores` keeps computed VP, `rawInputsData`
+  keeps what the user typed. (Replaces the prior hack of stashing raw inputs in
+  `categoryScores` while in progress.)
+- `GameSetupView` gains an `initialPlayerIDs` parameter for **Play again**.
+
+**Versioning / About:**
+- Show **release version** (`CFBundleShortVersionString`, e.g. `1.0.1`) and **dev
+  build** (`CFBundleVersion`, an integer) on the Home tab footer, e.g.
+  `BoardScore 1.0.1 · build 14`.
+- The dev build number is bumped on **every commit** (see CLAUDE.md).
 
 ## Open Questions
 
-_None remaining for v1._
+_None remaining for v1.01._
