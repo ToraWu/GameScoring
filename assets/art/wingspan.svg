@@ -1,39 +1,82 @@
 <svg width="600" height="420" viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg">
-  <!-- Soft sage nature scene -->
-  <rect width="600" height="420" fill="#e7eede"/>
-  <!-- Rolling hill -->
-  <path d="M0 420 Q 300 300 600 420 Z" fill="#cdddb8"/>
+  <defs>
+    <linearGradient id="skyW" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dfe7cf"/>
+      <stop offset="0.6" stop-color="#e8e3c0"/>
+      <stop offset="1" stop-color="#eed7a8"/>
+    </linearGradient>
+    <radialGradient id="sunW" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f6e7b0"/>
+      <stop offset="1" stop-color="#ecca7c"/>
+    </radialGradient>
+    <linearGradient id="hillW" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bcd09a"/>
+      <stop offset="1" stop-color="#a6bd83"/>
+    </linearGradient>
+    <radialGradient id="bodyW" cx="0.4" cy="0.35" r="0.8">
+      <stop offset="0" stop-color="#c87f3e"/>
+      <stop offset="1" stop-color="#a55e25"/>
+    </radialGradient>
+    <radialGradient id="headW" cx="0.4" cy="0.35" r="0.8">
+      <stop offset="0" stop-color="#cf8744"/>
+      <stop offset="1" stop-color="#aa6228"/>
+    </radialGradient>
+    <radialGradient id="vignW" cx="0.5" cy="0.45" r="0.75">
+      <stop offset="0.6" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#2f2a12" stop-opacity="0.34"/>
+    </radialGradient>
+    <filter id="softW" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <filter id="grainW" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+    </filter>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="600" height="420" fill="url(#skyW)"/>
+  <!-- Soft morning sun -->
+  <circle cx="470" cy="120" r="86" fill="#f3e1a6" opacity="0.4" filter="url(#softW)"/>
+  <circle cx="470" cy="120" r="44" fill="url(#sunW)"/>
+
+  <!-- Rolling hills -->
+  <path d="M0 330 Q 160 280 320 318 T 600 300 V420 H0 Z" fill="#c6d6a6" opacity="0.7"/>
+  <path d="M0 360 Q 200 320 380 352 T 600 348 V420 H0 Z" fill="url(#hillW)"/>
 
   <!-- Branch -->
-  <path d="M70 312 Q 300 322 540 296" stroke="#7a5a32" stroke-width="14"
+  <path d="M60 322 Q 300 332 548 304" stroke="#6e4a28" stroke-width="13"
         fill="none" stroke-linecap="round"/>
-  <!-- Leaves -->
+  <path d="M60 322 Q 300 332 548 304" stroke="#835c34" stroke-width="5"
+        fill="none" stroke-linecap="round" opacity="0.6"/>
   <g fill="#6f9e5a">
-    <ellipse cx="150" cy="300" rx="22" ry="11" transform="rotate(-28 150 300)"/>
-    <ellipse cx="470" cy="300" rx="22" ry="11" transform="rotate(24 470 300)"/>
+    <ellipse cx="150" cy="306" rx="22" ry="10" transform="rotate(-26 150 306)"/>
+    <ellipse cx="470" cy="304" rx="22" ry="10" transform="rotate(22 470 304)"/>
   </g>
 
-  <!-- Egg resting on the branch -->
-  <ellipse cx="210" cy="296" rx="20" ry="26" fill="#faf5ed" stroke="#d8c7a6" stroke-width="2"/>
+  <!-- Egg -->
+  <ellipse cx="206" cy="300" rx="19" ry="25" fill="#f3ead2" stroke="#d3c19a" stroke-width="2"/>
+  <ellipse cx="200" cy="292" rx="6" ry="8" fill="#ffffff" opacity="0.6"/>
+
+  <!-- Bird shadow -->
+  <ellipse cx="330" cy="276" rx="92" ry="14" fill="#3a2c12" opacity="0.22" filter="url(#softW)"/>
 
   <!-- Bird -->
-  <g>
-    <!-- Tail -->
-    <polygon points="232,196 196,150 268,196" fill="#92400e"/>
-    <!-- Body -->
-    <ellipse cx="330" cy="206" rx="86" ry="58" fill="#b45309"/>
-    <!-- Wing -->
-    <ellipse cx="318" cy="208" rx="50" ry="30" transform="rotate(18 318 208)" fill="#92400e"/>
-    <!-- Head -->
-    <circle cx="412" cy="166" r="38" fill="#b45309"/>
-    <!-- Beak -->
-    <polygon points="448,158 492,170 448,182" fill="#e8a33d"/>
-    <!-- Eye -->
-    <circle cx="424" cy="158" r="6" fill="#1c1008"/>
-    <!-- Legs -->
-    <g stroke="#7a5a32" stroke-width="5" stroke-linecap="round">
-      <line x1="318" y1="262" x2="318" y2="300"/>
-      <line x1="350" y1="262" x2="350" y2="300"/>
-    </g>
+  <polygon points="232,200 192,150 270,198" fill="#7c481d"/>
+  <ellipse cx="330" cy="208" rx="86" ry="58" fill="url(#bodyW)"/>
+  <ellipse cx="316" cy="212" rx="48" ry="28" transform="rotate(16 316 212)" fill="#8a4f1f" opacity="0.7"/>
+  <circle cx="412" cy="166" r="38" fill="url(#headW)"/>
+  <polygon points="448,158 494,170 448,182" fill="#e9a23f"/>
+  <polygon points="448,170 494,170 448,182" fill="#d8902f"/>
+  <circle cx="424" cy="158" r="6.5" fill="#1c1008"/>
+  <circle cx="426" cy="156" r="2" fill="#ffffff" opacity="0.8"/>
+  <g stroke="#6e4a28" stroke-width="5" stroke-linecap="round">
+    <line x1="318" y1="262" x2="318" y2="300"/>
+    <line x1="350" y1="262" x2="350" y2="300"/>
   </g>
+
+  <!-- Grain + vignette -->
+  <rect width="600" height="420" filter="url(#grainW)" opacity="0.5"/>
+  <rect width="600" height="420" fill="url(#vignW)"/>
 </svg>
