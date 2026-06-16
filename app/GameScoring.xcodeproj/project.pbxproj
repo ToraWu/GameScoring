@@ -36,6 +36,7 @@
 		ACF83005B92CCD98ADABC9DE /* RankingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD352842982AC481789478C9 /* RankingService.swift */; };
 		C01539F7DCDA5DF17A2C86FE /* RankingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07359F7DB8D6F8A97B08B78A /* RankingServiceTests.swift */; };
 		C0FBB0A3E0A86D0081C60B9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8D033452FCFDCCED806A57 /* ContentView.swift */; };
+		CA245A9E29CC1115A2AC89A9 /* Carcassonne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD3013E7E54301C8565C5BD /* Carcassonne.swift */; };
 		D292B0C108E0430B06159920 /* HistoryStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1AAC073BA92ADE3E70813 /* HistoryStats.swift */; };
 		D61F945ECF4A9CCF7A074407 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C913CC29EBC94CE97BE6E86 /* HistoryView.swift */; };
 		D82E48D2F3F3A293D660EAAB /* PlayerScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91E122160F677C6AE12AF14 /* PlayerScore.swift */; };
@@ -81,6 +82,7 @@
 		758DA2E282F8CF36AB39D3B4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		79238FE297A5D0DE7A4FE93D /* Timestamped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestamped.swift; sourceTree = "<group>"; };
 		79806D76474F83B08C0807C4 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		7FD3013E7E54301C8565C5BD /* Carcassonne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carcassonne.swift; sourceTree = "<group>"; };
 		8A8B3D7B568C270634498AAA /* StandingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsView.swift; sourceTree = "<group>"; };
 		8F5B0A713B5644EC4BE03CE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		99B8CE79C47816843505B7A9 /* DismissFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissFlow.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 		D9CC803F85E85D2B208A5F8F /* Games */ = {
 			isa = PBXGroup;
 			children = (
+				7FD3013E7E54301C8565C5BD /* Carcassonne.swift */,
 				146285DCA89B87F55B67EAD4 /* GameRegistry.swift */,
 				1FD1AAC073BA92ADE3E70813 /* HistoryStats.swift */,
 				FD352842982AC481789478C9 /* RankingService.swift */,
@@ -304,6 +307,7 @@
 			files = (
 				A0648CBD51BAB1BC7F893493 /* AddPlayerSheet.swift in Sources */,
 				319F59281608A85C9E1A4C29 /* AvatarColorPicker.swift in Sources */,
+				CA245A9E29CC1115A2AC89A9 /* Carcassonne.swift in Sources */,
 				C0FBB0A3E0A86D0081C60B9F /* ContentView.swift in Sources */,
 				296B573405A0B1FA23D6E4D1 /* DismissFlow.swift in Sources */,
 				641998D4C05129D91A002797 /* GameRef.swift in Sources */,

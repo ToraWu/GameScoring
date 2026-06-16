@@ -1,3 +1,4 @@
+import Foundation
 import Testing
 @testable import GameScoring
 
@@ -66,18 +67,40 @@ struct WingspanScoringTests {
   }
 }
 
+struct CarcassonneScoringTests {
+  @Test func hasNoComputedCategories() {
+    let result = Carcassonne.shared.calculateScores(["cities": 20, "roads": 8])
+    #expect(result.isEmpty)
+  }
+
+  @Test func totalSumsAllFourCategories() {
+    let total = ScoringEngine.total(for: Carcassonne.shared, inputs: [
+      "cities": 24, "roads": 10, "cloisters": 9, "fields": 15,
+    ])
+    #expect(total == 58)
+  }
+
+  @Test func tiesAreSharedWithNoTiebreaker() {
+    let a = RankingService.Entry(playerID: UUID(), total: 58, categoryScores: [:])
+    let b = RankingService.Entry(playerID: UUID(), total: 58, categoryScores: [:])
+    let result = RankingService.rank(game: Carcassonne.shared, entries: [a, b])
+    #expect(Set(result.winnerIDs) == [a.playerID, b.playerID])
+  }
+}
+
 struct GameRegistryTests {
-  @Test func registersBothGames() {
-    #expect(GameRegistry.all.count == 2)
+  @Test func registersAllGames() {
+    #expect(GameRegistry.all.count == 3)
   }
 
   @Test func looksUpByID() {
     #expect(GameRegistry.game(for: "7wonders")?.name == "7 Wonders")
     #expect(GameRegistry.game(for: "wingspan")?.name == "Wingspan")
+    #expect(GameRegistry.game(for: "carcassonne")?.name == "Carcassonne")
   }
 
   @Test func unknownIDReturnsNil() {
-    #expect(GameRegistry.game(for: "catan") == nil)
+    #expect(GameRegistry.game(for: "monopoly") == nil)
   }
 
   @Test func playerBoundsMatchSpec() {
@@ -85,5 +108,7 @@ struct GameRegistryTests {
     #expect(SevenWonders.shared.maxPlayers == 7)
     #expect(Wingspan.shared.minPlayers == 1)
     #expect(Wingspan.shared.maxPlayers == 5)
+    #expect(Carcassonne.shared.minPlayers == 2)
+    #expect(Carcassonne.shared.maxPlayers == 5)
   }
 }

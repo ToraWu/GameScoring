@@ -31,7 +31,7 @@ open GameScoring.xcodeproj
 - [x] PRD received
 - [x] Xcode project created (generated via xcodegen from `app/project.yml`)
 - [x] Data model implemented (`Player`, `GameSession`, `PlayerScore`)
-- [x] Game layer (`ScoringGame` protocol, 7 Wonders + Wingspan, `GameRegistry`)
+- [x] Game layer (`ScoringGame` protocol, 7 Wonders + Wingspan + Carcassonne, `GameRegistry`)
 - [x] M1 — Navigation shell (4-tab Liquid Glass `TabView`, Warm Table theme)
 - [x] M2 — Players tab (roster CRUD: add, inline edit, swipe soft-delete)
 - [x] M3 — Setup flow (game picker → player select → create GameSession)
