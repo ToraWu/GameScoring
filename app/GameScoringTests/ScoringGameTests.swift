@@ -111,4 +111,21 @@ struct GameRegistryTests {
     #expect(Carcassonne.shared.minPlayers == 2)
     #expect(Carcassonne.shared.maxPlayers == 5)
   }
+
+  @Test func everyCategoryHasIconAndColour() {
+    for game in GameRegistry.all {
+      for category in game.categories {
+        #expect(!category.icon.isEmpty)
+        #expect(category.colorHex.hasPrefix("#"))
+      }
+    }
+  }
+
+  @Test func sevenWondersMilitaryAllowsNegative() {
+    let military = SevenWonders.shared.categories.first { $0.id == "military" }
+    #expect(military?.allowsNegative == true)
+    // Direct-VP categories without penalties stay non-negative.
+    let treasury = SevenWonders.shared.categories.first { $0.id == "treasury" }
+    #expect(treasury?.allowsNegative == false)
+  }
 }

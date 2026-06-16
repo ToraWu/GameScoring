@@ -13,9 +13,13 @@ final class PlayerScore: Timestamped {
   // Written via `record(...)`; `didSet` does not fire on @Model properties.
   var totalScore: Double
 
-  // JSON-encoded `[String: Double]` keyed by category ID. Accessed through the
-  // `categoryScores` computed property below.
+  // JSON-encoded computed VP `[String: Double]` keyed by category ID. Accessed
+  // through the `categoryScores` computed property below.
   var categoryScoresData: Data
+
+  // JSON-encoded raw inputs `[String: Double]` — exactly what the user typed,
+  // kept so a finished game can be re-opened and revised (Results → Edit).
+  var rawInputsData: Data
 
   // 1 = winner. Tied players share a rank using competition ranking (1, 1, 3).
   var rank: Int
@@ -34,6 +38,7 @@ final class PlayerScore: Timestamped {
     self.session = session
     self.totalScore = totalScore
     self.categoryScoresData = Self.encode(categoryScores)
+    self.rawInputsData = Self.encode([:])
     self.rank = rank
     self.updatedAt = .now
   }
@@ -50,11 +55,30 @@ final class PlayerScore: Timestamped {
     }
   }
 
+  /// Raw inputs the user entered, keyed by category ID. Persisted live during
+  /// scoring so an in-progress or finished game can be resumed/revised.
+  var rawInputs: [String: Double] {
+    get {
+      (try? JSONDecoder().decode([String: Double].self, from: rawInputsData)) ?? [:]
+    }
+    set {
+      rawInputsData = Self.encode(newValue)
+      touch()
+    }
+  }
+
   /// Writes the computed result of a scoring pass and bumps `updatedAt` once.
-  func record(totalScore: Double, rank: Int, categoryScores: [String: Double]) {
+  /// `rawInputs` are the user's entries that produced these scores.
+  func record(
+    totalScore: Double,
+    rank: Int,
+    categoryScores: [String: Double],
+    rawInputs: [String: Double]
+  ) {
     self.totalScore = totalScore
     self.rank = rank
     self.categoryScoresData = Self.encode(categoryScores)
+    self.rawInputsData = Self.encode(rawInputs)
     touch()
   }
 

@@ -148,5 +148,8 @@ struct SessionServiceTests {
     #expect(score.totalScore == 15)             // 5 military + 10 science
     #expect(score.categoryScores["science"] == 10)
     #expect(score.categoryScores["compass"] == nil)  // raw input not stored as a score
+    // Raw inputs are retained so the finished game can be re-opened and revised.
+    #expect(score.rawInputs["compass"] == 1)
+    #expect(score.rawInputs["military"] == 5)
   }
 }

@@ -19,19 +19,31 @@ struct SevenWonders: ScoringGame {
   let maxPlayers = 7
 
   let categories: [ScoreCategory] = [
-    ScoreCategory(id: "military",  name: "Military",  inputType: .integer,                      displayOrder: 0),
-    ScoreCategory(id: "treasury",  name: "Treasury",  inputType: .integer,                      displayOrder: 1),
-    ScoreCategory(id: "wonders",   name: "Wonders",   inputType: .integer,                      displayOrder: 2),
-    ScoreCategory(id: "civilian",  name: "Civilian",  inputType: .integer,                      displayOrder: 3),
-    ScoreCategory(id: "science",   name: "Science",   inputType: .computed(["compass","tablet","gear","sci_wild"]), displayOrder: 4),
-    ScoreCategory(id: "commerce",  name: "Commerce",  inputType: .integer,                      displayOrder: 5),
-    ScoreCategory(id: "guilds",    name: "Guilds",    inputType: .integer,                      displayOrder: 6),
+    ScoreCategory(id: "military", name: "Military", inputType: .integer, displayOrder: 0,
+                  icon: "shield.fill", colorHex: "#c0392b", allowsNegative: true),
+    ScoreCategory(id: "treasury", name: "Treasury", inputType: .integer, displayOrder: 1,
+                  icon: "centsign.circle.fill", colorHex: "#caa53d"),
+    ScoreCategory(id: "wonders", name: "Wonders", inputType: .integer, displayOrder: 2,
+                  icon: "building.columns.fill", colorHex: "#8a6d3b"),
+    ScoreCategory(id: "civilian", name: "Civilian", inputType: .integer, displayOrder: 3,
+                  icon: "building.2.fill", colorHex: "#2f6fb0"),
+    ScoreCategory(id: "science", name: "Science",
+                  inputType: .computed(["compass", "tablet", "gear", "sci_wild"]), displayOrder: 4,
+                  icon: "atom", colorHex: "#3a8f5a"),
+    ScoreCategory(id: "commerce", name: "Commerce", inputType: .integer, displayOrder: 5,
+                  icon: "cart.fill", colorHex: "#d4a12a"),
+    ScoreCategory(id: "guilds", name: "Guilds", inputType: .integer, displayOrder: 6,
+                  icon: "person.3.fill", colorHex: "#7e5aa8"),
 
     // Science symbol inputs — shown as sub-rows under Science.
-    ScoreCategory(id: "compass",   name: "Compass",   inputType: .integer,                      displayOrder: 40),
-    ScoreCategory(id: "tablet",    name: "Tablet",    inputType: .integer,                      displayOrder: 41),
-    ScoreCategory(id: "gear",      name: "Gear",      inputType: .integer,                      displayOrder: 42),
-    ScoreCategory(id: "sci_wild",  name: "Wildcard",  inputType: .integer,                      displayOrder: 43),
+    ScoreCategory(id: "compass", name: "Compass", inputType: .integer, displayOrder: 40,
+                  icon: "safari.fill", colorHex: "#3a8f5a"),
+    ScoreCategory(id: "tablet", name: "Tablet", inputType: .integer, displayOrder: 41,
+                  icon: "book.closed.fill", colorHex: "#3a8f5a"),
+    ScoreCategory(id: "gear", name: "Gear", inputType: .integer, displayOrder: 42,
+                  icon: "gearshape.fill", colorHex: "#3a8f5a"),
+    ScoreCategory(id: "sci_wild", name: "Wildcard", inputType: .integer, displayOrder: 43,
+                  icon: "star.fill", colorHex: "#3a8f5a"),
   ]
 
   let tieBreaker: TieBreakerRule = .byCategory("treasury")

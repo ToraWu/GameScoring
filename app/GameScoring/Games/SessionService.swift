@@ -61,7 +61,12 @@ enum SessionService {
     // Pass 3: persist and complete.
     for (score, categories, total) in computed {
       let rank = score.player.flatMap { ranking.ranks[$0.id] } ?? 0
-      score.record(totalScore: total, rank: rank, categoryScores: categories)
+      score.record(
+        totalScore: total,
+        rank: rank,
+        categoryScores: categories,
+        rawInputs: inputs[score.id] ?? [:]
+      )
     }
     session.complete(winnerIDs: ranking.winnerIDs)
   }

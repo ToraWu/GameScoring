@@ -51,6 +51,17 @@
                ReferencedContainer = "container:GameScoring.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0C1DC84457871CB25801E77D"
+               BuildableName = "GameScoringUITests.xctest"
+               BlueprintName = "GameScoringUITests"
+               ReferencedContainer = "container:GameScoring.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <CommandLineArguments>
       </CommandLineArguments>

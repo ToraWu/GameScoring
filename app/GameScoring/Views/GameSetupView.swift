@@ -5,6 +5,8 @@ import SwiftUI
 /// Presented over the Shelf/Home; the tab bar is hidden while it's up.
 struct GameSetupView: View {
   let game: any ScoringGame
+  /// Players to pre-select (e.g. Results → Play again reuses the same table).
+  var initialPlayerIDs: [UUID] = []
 
   @Environment(\.dismiss) private var dismiss
   @Environment(\.modelContext) private var context
@@ -63,6 +65,12 @@ struct GameSetupView: View {
       }
       .navigationDestination(item: $startedSession) { session in
         ScoringView(session: session)
+      }
+      .onAppear {
+        if selectedIDs.isEmpty {
+          // Pre-select the requested players that are still in the roster.
+          selectedIDs = initialPlayerIDs.filter { id in roster.contains { $0.id == id } }
+        }
       }
     }
   }

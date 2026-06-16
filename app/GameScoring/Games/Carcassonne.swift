@@ -16,10 +16,14 @@ struct Carcassonne: ScoringGame {
   let maxPlayers = 5
 
   let categories: [ScoreCategory] = [
-    ScoreCategory(id: "cities",    name: "Cities",    inputType: .integer, displayOrder: 0),
-    ScoreCategory(id: "roads",     name: "Roads",     inputType: .integer, displayOrder: 1),
-    ScoreCategory(id: "cloisters", name: "Cloisters", inputType: .integer, displayOrder: 2),
-    ScoreCategory(id: "fields",    name: "Fields",    inputType: .integer, displayOrder: 3),
+    ScoreCategory(id: "cities", name: "Cities", inputType: .integer, displayOrder: 0,
+                  icon: "building.2.fill", colorHex: "#b5562a"),
+    ScoreCategory(id: "roads", name: "Roads", inputType: .integer, displayOrder: 1,
+                  icon: "road.lanes", colorHex: "#7a7066"),
+    ScoreCategory(id: "cloisters", name: "Cloisters", inputType: .integer, displayOrder: 2,
+                  icon: "building.columns.fill", colorHex: "#8a6d3b"),
+    ScoreCategory(id: "fields", name: "Fields", inputType: .integer, displayOrder: 3,
+                  icon: "leaf.fill", colorHex: "#5a9e4a"),
   ]
 
   let tieBreaker: TieBreakerRule = .none

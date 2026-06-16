@@ -26,6 +26,30 @@ struct ScoreCategory: Identifiable {
   let inputType: CategoryInputType
   /// Order in which this row appears in the scoring sheet (ascending).
   let displayOrder: Int
+  /// SF Symbol shown beside the row, in the game's colour system.
+  let icon: String
+  /// Hex colour (e.g. `#c0392b`) for the icon — the game's identity for this category.
+  let colorHex: String
+  /// Whether values may go below zero (e.g. 7 Wonders military defeats).
+  let allowsNegative: Bool
+
+  init(
+    id: String,
+    name: String,
+    inputType: CategoryInputType,
+    displayOrder: Int,
+    icon: String = "circle.fill",
+    colorHex: String = "#8a6d3b",
+    allowsNegative: Bool = false
+  ) {
+    self.id = id
+    self.name = name
+    self.inputType = inputType
+    self.displayOrder = displayOrder
+    self.icon = icon
+    self.colorHex = colorHex
+    self.allowsNegative = allowsNegative
+  }
 }
 
 /// Adopted by every supported board game. The protocol is the only coupling

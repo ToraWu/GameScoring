@@ -92,10 +92,26 @@ struct PlayerScoreTests {
   @Test func recordWritesAllFieldsAndTouches() {
     let score = makeScore()
     score.updatedAt = .distantPast
-    score.record(totalScore: 42, rank: 1, categoryScores: ["military": 6, "science": 10])
+    score.record(
+      totalScore: 42,
+      rank: 1,
+      categoryScores: ["military": 6, "science": 10],
+      rawInputs: ["compass": 1, "tablet": 1, "gear": 1]
+    )
     #expect(score.totalScore == 42)
     #expect(score.rank == 1)
     #expect(score.categoryScores["science"] == 10)
+    #expect(score.rawInputs["compass"] == 1)  // raw entries kept for revision
+    #expect(score.updatedAt > .distantPast)
+  }
+
+  @Test func rawInputsRoundTripAndTouch() {
+    let score = makeScore()
+    #expect(score.rawInputs.isEmpty)
+    score.updatedAt = .distantPast
+    score.rawInputs = ["military": -2, "treasury": 5]
+    #expect(score.rawInputs["military"] == -2)  // negatives preserved
+    #expect(score.rawInputs["treasury"] == 5)
     #expect(score.updatedAt > .distantPast)
   }
 }
