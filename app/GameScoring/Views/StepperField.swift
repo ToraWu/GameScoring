@@ -15,8 +15,6 @@ struct StepperField: View {
   /// Open the keypad for this field.
   let onTapValue: () -> Void
 
-  private static let negativeColor = Color(hex: 0xdc2626)
-
   private var displayText: String {
     (!touched && value == 0) ? "0" : String(Int(value))
   }
@@ -48,7 +46,7 @@ struct StepperField: View {
   }
 
   private var valueColor: Color {
-    if value < 0 { return Self.negativeColor }
+    if value < 0 { return Theme.negative }
     return isPlaceholder ? Theme.textSecondary.opacity(0.5) : Theme.textPrimary
   }
 
@@ -61,5 +59,6 @@ struct StepperField: View {
         .background(Theme.accentPrimary.opacity(0.12), in: .circle)
     }
     .buttonStyle(.plain)
+    .accessibilityLabel(symbol == "minus" ? "Decrease" : "Increase")
   }
 }

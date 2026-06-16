@@ -16,6 +16,9 @@ enum Theme {
   static let textPrimary = Color(hex: 0x1c1008)
   static let textSecondary = Color(red: 50 / 255, green: 20 / 255, blue: 0, opacity: 0.65)
 
+  /// Distinct colour for negative scores (e.g. military defeats, failed tickets).
+  static let negative = Color(hex: 0xdc2626)
+
   /// Eight avatar swatches, in selection order. See PRD §Avatar colour palette.
   static let avatarPalette: [String] = [
     "#e11d48", "#ea580c", "#ca8a04", "#16a34a",

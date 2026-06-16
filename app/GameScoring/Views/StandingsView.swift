@@ -123,7 +123,7 @@ private struct ResultRow: View {
                   .foregroundStyle(Color(hexString: item.colorHex))
                 Text("\(Int(item.value.rounded()))")
                   .font(.subheadline.weight(.semibold).monospacedDigit())
-                  .foregroundStyle(item.value < 0 ? Color(hex: 0xdc2626) : Theme.textPrimary)
+                  .foregroundStyle(item.value < 0 ? Theme.negative : Theme.textPrimary)
                 Text(item.name)
                   .font(.caption2)
                   .foregroundStyle(Theme.textSecondary)

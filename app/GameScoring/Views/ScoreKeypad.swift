@@ -53,6 +53,7 @@ struct ScoreKeypad: View {
           .foregroundStyle(Theme.textSecondary)
           .padding(.leading, 10)
       }
+      .accessibilityLabel("Close keypad")
       .accessibilityIdentifier("keypad.done")
     }
   }
@@ -85,10 +86,12 @@ struct ScoreKeypad: View {
       }
       HStack(spacing: 8) {
         key(symbol: "plus.forwardslash.minus", action: onSign, enabled: allowsNegative)
+          .accessibilityLabel("Toggle sign")
           .accessibilityIdentifier("keypad.sign")
         key(label: "0") { onDigit(0) }
           .accessibilityIdentifier("keypad.0")
         key(symbol: "delete.left", action: onDelete)
+          .accessibilityLabel("Delete")
           .accessibilityIdentifier("keypad.delete")
       }
     }

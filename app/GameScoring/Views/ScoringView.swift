@@ -392,6 +392,7 @@ struct ScoringView: View {
 
   private func finish() {
     guard let game else { return }
+    editingCategoryID = nil
     persistInputs()
     SessionService.finish(session, game: game, inputs: inputs)
     finishedSession = session
