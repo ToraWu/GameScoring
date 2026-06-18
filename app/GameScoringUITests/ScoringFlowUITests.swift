@@ -68,4 +68,19 @@ final class ScoringFlowUITests: XCTestCase {
     for _ in 0..<3 { minus.tap() }
     XCTAssertEqual(app.buttons["treasury.value"].label, "0")
   }
+
+  func testKeypadNextScrollsEditedFieldIntoView() {
+    let app = XCUIApplication()
+    startTwoPlayerGame(app)
+
+    // Open the keypad on Military, then Next down to a symbol field, which sits
+    // far below (under the keypad). It must be scrolled into view to be hittable.
+    app.buttons["military.value"].tap()
+    let next = app.buttons["keypad.next"]
+    waitFor(next, 10)
+    for _ in 0..<6 { next.tap() }  // military → … → compass (first symbol)
+
+    XCTAssertTrue(app.buttons["compass.value"].isHittable,
+                  "Next should scroll the highlighted field into view")
+  }
 }

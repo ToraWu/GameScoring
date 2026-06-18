@@ -156,10 +156,10 @@ struct ScoringView: View {
             size: isCurrent ? currentAvatar : 34
           )
           .opacity(isCurrent ? 1 : 0.55)
+          // Border is always present (clear when not current) so it scales with
+          // the avatar's size animation instead of popping in/out on switch.
           .overlay {
-            if isCurrent {
-              Circle().strokeBorder(Theme.accentPrimary, lineWidth: 2)
-            }
+            Circle().strokeBorder(isCurrent ? Theme.accentPrimary : .clear, lineWidth: 2)
           }
           .onTapGesture { switchTo(index) }
           .accessibilityIdentifier("scoring.player.\(index)")
@@ -196,6 +196,11 @@ struct ScoringView: View {
       .onChange(of: currentIndex) { _, _ in
         withAnimation(.snappy) { proxy.scrollTo("top", anchor: .top) }
       }
+      .onChange(of: editingCategoryID) { _, id in
+        // Bring the field being edited into view above the docked keypad.
+        guard let id else { return }
+        withAnimation(.snappy) { proxy.scrollTo(id, anchor: .center) }
+      }
     }
   }
 
@@ -215,6 +220,7 @@ struct ScoringView: View {
       VStack(spacing: 0) {
         ForEach(rows) { category in
           categoryRow(category, score: score, computed: computed)
+            .id(category.id)  // scroll anchor for the keypad's Next
           if category.id != rows.last?.id {
             Divider().overlay(Theme.textSecondary.opacity(0.15))
           }
