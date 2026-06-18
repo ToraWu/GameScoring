@@ -3,9 +3,10 @@ xcuserdata/
 *.xcscmblueprint
 *.xccheckout
 
-# xcodegen — commit project.yml, not the generated .xcodeproj
-# (uncomment the line below if you prefer to commit the generated project)
-# GameScoring.xcodeproj/
+# xcodegen — commit project.yml, not the generated .xcodeproj.
+# The project is a build artifact (regenerate with `cd app && xcodegen generate`);
+# keeping it untracked avoids signing-team churn and non-deterministic diffs.
+GameScoring.xcodeproj/
 
 # Build artifacts
 .build/

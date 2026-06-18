@@ -10,7 +10,8 @@ GameScoring/
 ├── assets/                     # Images, icons, and other assets
 ├── app/                        # Xcode project
 │   ├── project.yml             # xcodegen spec (source of truth)
-│   ├── GameScoring.xcodeproj   # generated — do not edit by hand
+│   ├── Signing.xcconfig        # local Team ID for device builds (skip-worktree)
+│   ├── GameScoring.xcodeproj   # generated — gitignored, run xcodegen first
 │   └── GameScoring/            # Swift source
 │       ├── Models/             # SwiftData @Model entities
 │       ├── GameScoringApp.swift
@@ -22,8 +23,15 @@ GameScoring/
 
 ```bash
 brew install xcodegen          # one-time
-cd app && xcodegen generate    # regenerate GameScoring.xcodeproj from project.yml
+cd app && xcodegen generate    # generate GameScoring.xcodeproj (gitignored)
 open GameScoring.xcodeproj
+```
+
+For on-device debugging, set your Apple Developer Team ID in `app/Signing.xcconfig`
+and tell git to ignore your edit (so it isn't pushed and survives regeneration):
+
+```bash
+git update-index --skip-worktree app/Signing.xcconfig
 ```
 
 ## Status
