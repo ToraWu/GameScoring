@@ -28,6 +28,7 @@ struct PlayerDetailView: View {
       VStack(spacing: 24) {
         profile
         statCards
+        colorSection
         if !summary.byGame.isEmpty {
           breakdownSection
         }
@@ -56,6 +57,20 @@ struct PlayerDetailView: View {
       statCard("Games", "\(summary.gamesPlayed)")
       statCard("Wins", "\(summary.wins)")
       statCard("Win rate", "\(Int((summary.winRate * 100).rounded()))%")
+    }
+  }
+
+  private var colorSection: some View {
+    VStack(alignment: .leading, spacing: 8) {
+      Text("Colour")
+        .font(.headline)
+        .foregroundStyle(Theme.textPrimary)
+      AvatarColorPicker(selection: Binding(
+        get: { player.avatarColor },
+        set: { player.setAvatarColor($0) }
+      ))
+      .padding(14)
+      .background(.regularMaterial, in: .rect(cornerRadius: 16))
     }
   }
 

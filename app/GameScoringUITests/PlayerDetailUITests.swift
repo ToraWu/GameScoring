@@ -38,4 +38,20 @@ final class PlayerDetailUITests: XCTestCase {
     XCTAssertTrue(app.staticTexts["Win rate"].waitForExistence(timeout: 8))
     XCTAssertTrue(app.staticTexts["0%"].exists)
   }
+
+  func testEditingAvatarColor() {
+    let app = XCUIApplication()
+    app.launchFresh(seedPlayers: true)
+
+    app.tabBars.buttons["Players"].tap()
+    let avatar = app.buttons["playerAvatar.Ada"]
+    waitFor(avatar, 10)
+    avatar.tap()
+
+    // Pick a new colour swatch; it becomes the selected one.
+    let teal = app.buttons["#0891b2"]
+    waitFor(teal, 8)
+    teal.tap()
+    XCTAssertTrue(teal.isSelected, "tapped colour should become selected")
+  }
 }
