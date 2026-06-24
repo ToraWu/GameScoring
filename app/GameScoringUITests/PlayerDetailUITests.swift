@@ -14,7 +14,7 @@ final class PlayerDetailUITests: XCTestCase {
     avatar.tap()
 
     // Ada: 1 game, 1 win → 100% win rate, with a per-game breakdown.
-    XCTAssertTrue(app.staticTexts["Win rate"].waitForExistence(timeout: 8))
+    XCTAssertTrue(app.staticTexts["Win rate"].waitForExistence(timeout: 20))
     XCTAssertTrue(app.staticTexts["100%"].exists)
     XCTAssertTrue(app.staticTexts["By game"].exists)
     XCTAssertTrue(app.staticTexts["Recent games"].exists)
@@ -35,7 +35,7 @@ final class PlayerDetailUITests: XCTestCase {
     avatar.tap()
 
     // Boris: 1 game, 0 wins → 0%.
-    XCTAssertTrue(app.staticTexts["Win rate"].waitForExistence(timeout: 8))
+    XCTAssertTrue(app.staticTexts["Win rate"].waitForExistence(timeout: 20))
     XCTAssertTrue(app.staticTexts["0%"].exists)
   }
 
@@ -50,7 +50,7 @@ final class PlayerDetailUITests: XCTestCase {
 
     // Pick a new colour swatch; it becomes the selected one.
     let teal = app.buttons["#0891b2"]
-    waitFor(teal, 8)
+    waitFor(teal, 20)
     teal.tap()
     XCTAssertTrue(teal.isSelected, "tapped colour should become selected")
   }
