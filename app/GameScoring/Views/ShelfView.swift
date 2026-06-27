@@ -45,37 +45,36 @@ struct ShelfView: View {
   }
 }
 
-/// A single game's cover card: full-width artwork with a title/player-count
-/// caption bar underneath, wrapped in a Liquid Glass surface.
+/// A single game's cover card: artwork fills the card with a frosted-glass
+/// caption (title + player count) floating over its lower edge, so the art
+/// stays visible behind it.
 struct GameCard: View {
   let game: any ScoringGame
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 0) {
-      Image(game.artworkName)
-        .resizable()
-        .aspectRatio(contentMode: .fill)
-        .frame(height: 150)
-        .frame(maxWidth: .infinity)
-        .clipped()
-
-      VStack(alignment: .leading, spacing: 2) {
-        Text(game.name)
-          .font(.headline)
-          .foregroundStyle(Theme.textPrimary)
-        Text("\(game.minPlayers)–\(game.maxPlayers) players")
-          .font(.subheadline)
-          .foregroundStyle(Theme.textSecondary)
+    Image(game.artworkName)
+      .resizable()
+      .aspectRatio(contentMode: .fill)
+      .frame(height: 170)
+      .frame(maxWidth: .infinity)
+      .overlay(alignment: .bottom) {
+        VStack(alignment: .leading, spacing: 2) {
+          Text(game.name)
+            .font(.headline)
+            .foregroundStyle(Theme.textPrimary)
+          Text("\(game.minPlayers)–\(game.maxPlayers) players")
+            .font(.subheadline)
+            .foregroundStyle(Theme.textSecondary)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(14)
+        .background(.ultraThinMaterial)  // blurred glass over the artwork
       }
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .padding(14)
-    }
-    .background(.regularMaterial, in: .rect(cornerRadius: 20))
-    .clipShape(.rect(cornerRadius: 20))
-    .overlay(
-      RoundedRectangle(cornerRadius: 20)
-        .strokeBorder(.white.opacity(0.5), lineWidth: 1)  // specular top rim
-    )
+      .clipShape(.rect(cornerRadius: 20))
+      .overlay(
+        RoundedRectangle(cornerRadius: 20)
+          .strokeBorder(.white.opacity(0.5), lineWidth: 1)  // specular rim
+      )
   }
 }
 
