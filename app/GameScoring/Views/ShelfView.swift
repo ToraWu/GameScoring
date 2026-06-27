@@ -45,36 +45,58 @@ struct ShelfView: View {
   }
 }
 
-/// A single game's cover card: artwork fills the card with a frosted-glass
-/// caption (title + player count) floating over its lower edge, so the art
-/// stays visible behind it.
+/// A single game's cover card.
+/// - Default: artwork fills the card with a frosted-glass caption floating over
+///   its lower edge (used in the Shelf list and the Home "more games" strip).
+/// - `fullArt`: the whole artwork is shown uncropped with the caption below it
+///   (used for the prominent featured card on Home).
 struct GameCard: View {
   let game: any ScoringGame
+  var fullArt: Bool = false
 
   var body: some View {
-    Image(game.artworkName)
-      .resizable()
-      .aspectRatio(contentMode: .fill)
-      .frame(height: 170)
-      .frame(maxWidth: .infinity)
-      .overlay(alignment: .bottom) {
-        VStack(alignment: .leading, spacing: 2) {
-          Text(game.name)
-            .font(.headline)
-            .foregroundStyle(Theme.textPrimary)
-          Text("\(game.minPlayers)–\(game.maxPlayers) players")
-            .font(.subheadline)
-            .foregroundStyle(Theme.textSecondary)
+    Group {
+      if fullArt {
+        VStack(alignment: .leading, spacing: 0) {
+          Image(game.artworkName)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(maxWidth: .infinity)
+          caption
+            .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(.regularMaterial)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(14)
-        .background(.ultraThinMaterial)  // blurred glass over the artwork
+      } else {
+        Image(game.artworkName)
+          .resizable()
+          .aspectRatio(contentMode: .fill)
+          .frame(height: 170)
+          .frame(maxWidth: .infinity)
+          .overlay(alignment: .bottom) {
+            caption
+              .frame(maxWidth: .infinity, alignment: .leading)
+              .padding(14)
+              .background(.ultraThinMaterial)  // blurred glass over the artwork
+          }
       }
-      .clipShape(.rect(cornerRadius: 20))
-      .overlay(
-        RoundedRectangle(cornerRadius: 20)
-          .strokeBorder(.white.opacity(0.5), lineWidth: 1)  // specular rim
-      )
+    }
+    .clipShape(.rect(cornerRadius: 20))
+    .overlay(
+      RoundedRectangle(cornerRadius: 20)
+        .strokeBorder(.white.opacity(0.5), lineWidth: 1)  // specular rim
+    )
+  }
+
+  private var caption: some View {
+    VStack(alignment: .leading, spacing: 2) {
+      Text(game.name)
+        .font(.headline)
+        .foregroundStyle(Theme.textPrimary)
+      Text("\(game.minPlayers)–\(game.maxPlayers) players")
+        .font(.subheadline)
+        .foregroundStyle(Theme.textSecondary)
+    }
   }
 }
 

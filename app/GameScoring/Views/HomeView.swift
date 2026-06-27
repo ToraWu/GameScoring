@@ -108,7 +108,7 @@ struct HomeView: View {
         flow = .setup(GameRef(game: game))
       } label: {
         VStack(spacing: 12) {
-          GameCard(game: game)
+          GameCard(game: game, fullArt: true)
           // Styled like a prominent button but not interactive itself — the
           // surrounding Button handles the tap (avoids nesting buttons).
           Text("Start a game  →")
