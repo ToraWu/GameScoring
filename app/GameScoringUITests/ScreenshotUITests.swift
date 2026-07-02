@@ -42,6 +42,7 @@ final class ScreenshotUITests: XCTestCase {
     app.buttons["scoring.finish"].tap()
 
     waitFor(app.staticTexts["Ada wins!"], 8)
+    Thread.sleep(forTimeInterval: 0.4)  // catch the confetti mid-fall
     snap(app, "Results")
   }
 }

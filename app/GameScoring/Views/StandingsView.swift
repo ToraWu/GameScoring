@@ -6,6 +6,12 @@ import SwiftUI
 /// post-game Results screen and the History detail screen.
 struct StandingsView: View {
   let session: GameSession
+  /// When true, the winner reveal plays a confetti + entrance celebration.
+  /// Set on the post-game Results screen; left off for History detail.
+  var celebrate: Bool = false
+
+  @State private var revealed = false
+  @State private var showConfetti = false
 
   private var game: (any ScoringGame)? { GameRegistry.game(for: session.gameID) }
 
@@ -18,14 +24,13 @@ struct StandingsView: View {
     }
   }
 
-  private var winnerNames: [String] {
-    rankedScores.filter(isWinner).compactMap { $0.player?.name }
-  }
+  private var winners: [PlayerScore] { rankedScores.filter(isWinner) }
+  private var winnerNames: [String] { winners.compactMap { $0.player?.name } }
 
   var body: some View {
     ScrollView {
       VStack(spacing: 20) {
-        winnerHeader
+        winnerHero
         VStack(spacing: 12) {
           ForEach(rankedScores) { score in
             ResultRow(score: score, game: game, isWinner: isWinner(score))
@@ -35,35 +40,73 @@ struct StandingsView: View {
       .padding(20)
     }
     .background(Theme.background)
+    .overlay {
+      if showConfetti { ConfettiView() }
+    }
+    .onAppear(perform: startReveal)
   }
 
-  private var winnerHeader: some View {
-    VStack(spacing: 10) {
-      Image(systemName: "crown.fill")
-        .font(.system(size: 44))
-        .foregroundStyle(Theme.accentSecondary)
-        .symbolEffect(.bounce, options: .nonRepeating)
+  // MARK: - Winner hero
 
-      if session.isTie {
-        Text("It's a tie!")
-          .font(.title2.bold())
-          .foregroundStyle(Theme.textPrimary)
-        Text(winnerNames.joined(separator: " & "))
-          .font(.headline)
-          .foregroundStyle(Theme.textSecondary)
-      } else {
-        Text("\(winnerNames.first ?? "—") wins!")
-          .font(.title2.bold())
-          .foregroundStyle(Theme.textPrimary)
+  private var winnerHero: some View {
+    let avatarSize: CGFloat = winners.count <= 1 ? 104 : (winners.count <= 3 ? 78 : 56)
+
+    return VStack(spacing: 14) {
+      Image(systemName: "crown.fill")
+        .font(.system(size: 54))
+        .foregroundStyle(Theme.accentSecondary)
+        .symbolEffect(.bounce, options: .nonRepeating, value: revealed)
+
+      Text(session.isTie ? "It's a tie!" : "\(winnerNames.first ?? "—") wins!")
+        .font(.largeTitle.bold())
+        .foregroundStyle(Theme.textPrimary)
+        .multilineTextAlignment(.center)
+
+      HStack(alignment: .top, spacing: 16) {
+        ForEach(winners) { score in
+          VStack(spacing: 6) {
+            PlayerAvatar(
+              name: score.player?.name ?? "?",
+              colorHex: score.player?.avatarColor ?? "#888888",
+              size: avatarSize
+            )
+            .overlay(Circle().strokeBorder(Theme.accentSecondary, lineWidth: 3))
+            .shadow(color: Theme.accentSecondary.opacity(0.55), radius: 14)
+
+            Text(score.player?.name ?? "Player")
+              .font(.title3.bold())
+              .foregroundStyle(Theme.textPrimary)
+            Text("\(Int(score.totalScore.rounded())) VP")
+              .font(.title2.bold().monospacedDigit())
+              .foregroundStyle(Theme.accentPrimary)
+          }
+        }
       }
     }
     .frame(maxWidth: .infinity)
-    .padding(.vertical, 24)
-    .background(.regularMaterial, in: .rect(cornerRadius: 24))
+    .padding(.vertical, 28)
+    .background(.regularMaterial, in: .rect(cornerRadius: 28))
     .overlay(
-      RoundedRectangle(cornerRadius: 24)
-        .strokeBorder(.white.opacity(0.5), lineWidth: 1)
+      RoundedRectangle(cornerRadius: 28)
+        .strokeBorder(Theme.accentSecondary.opacity(0.5), lineWidth: 1.5)
     )
+    .scaleEffect(hidden ? 0.85 : 1)
+    .opacity(hidden ? 0 : 1)
+  }
+
+  /// True only during the pre-reveal frame of a celebration.
+  private var hidden: Bool { celebrate && !revealed }
+
+  private func startReveal() {
+    guard celebrate else { revealed = true; return }
+    guard !revealed else { return }
+    showConfetti = true
+    withAnimation(.spring(response: 0.6, dampingFraction: 0.6)) { revealed = true }
+    #if canImport(UIKit)
+    UINotificationFeedbackGenerator().notificationOccurred(.success)
+    #endif
+    // Unmount the confetti once the burst has played out.
+    DispatchQueue.main.asyncAfter(deadline: .now() + 3.6) { showConfetti = false }
   }
 
   private func isWinner(_ score: PlayerScore) -> Bool {

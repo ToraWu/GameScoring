@@ -21,7 +21,7 @@ struct ResultsView: View {
   }
 
   var body: some View {
-    StandingsView(session: session)
+    StandingsView(session: session, celebrate: true)
       .safeAreaInset(edge: .bottom) { playAgainBar }
       .navigationTitle("Results")
       .navigationBarTitleDisplayMode(.inline)
